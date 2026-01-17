@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OMR Project | Dafei Qiu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/style.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand"><a href="../../">Dafei Qiu<span class="dot">.</span></a></div>
+
+        <nav>
+          <ul>
+            <li><a href="../../education/" data-path="/education/">Education / 教育</a></li>
+            <li><a href="../" data-path="/projects/">Projects / 项目</a></li>
+            <li><a href="../../hobby/" data-path="/hobby/">Hobbies / 爱好</a></li>
+            <li><a href="../../contact/" data-path="/contact/">Contact / 联系</a></li>
+          </ul>
+        </nav>
+
+        <div class="controls">
+          <button class="btn" id="themeBtn">🌗 Theme</button>
+          <a class="btn" href="https://github.com/yourusername" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section>
+        <span class="pill">📌 Project / 项目</span>
+        <h1 style="margin: 10px 0 8px">Optical Music Recognition (OMR) / 乐谱识别</h1>
+        <p class="sub">
+          Pipeline: sheet image → MusicXML (Audiveris) → post-process → MIDI → audio.
+          流水线：乐谱图片 → MusicXML（Audiveris）→ 后处理 → MIDI → 音频。
+        </p>
+
+        <div class="tags" style="margin-top: 14px">
+          <a class="tag" href="../">← Back to Projects / 返回项目列表</a>
+          <a class="tag" href="https://github.com/yourusername/omr-project" target="_blank" rel="noreferrer">GitHub Repo</a>
+          <a class="tag" href="#" target="_blank" rel="noreferrer">Demo</a>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">What it does / 做了什么</h2>
+        <div class="grid">
+          <article class="card two-col">
+            <h3>Input / 输入</h3>
+            <p class="meta">Photos or scans of sheet music / 乐谱照片或扫描图</p>
+          </article>
+          <article class="card two-col">
+            <h3>Output / 输出</h3>
+            <p class="meta">MusicXML + MIDI + audio rendering / MusicXML + MIDI + 音频</p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">Approach / 方法</h2>
+        <div class="grid">
+          <article class="card">
+            <h3>Pipeline / 流程</h3>
+            <p class="meta">
+              1) Audiveris extracts MusicXML<br />
+              2) Post-processing fixes pitch/duration edge cases<br />
+              3) Export MIDI + synth to audio for listening/debugging<br /><br />
+              1) Audiveris 输出 MusicXML<br />
+              2) 规则/后处理修复音高与时值边界情况<br />
+              3) 导出 MIDI 并合成音频用于试听与调试
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">Tech Stack / 技术栈</h2>
+        <div class="grid">
+          <article class="card">
+            <div class="stack">
+              <span class="chip">Python</span>
+              <span class="chip">OpenCV</span>
+              <span class="chip">Audiveris</span>
+              <span class="chip">MusicXML</span>
+              <span class="chip">MIDI</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">Media / 示例</h2>
+        <div class="grid">
+          <article class="card">
+            <p class="meta">
+              Put screenshots / GIFs / audio clips here (you can store them in <code>projects/omr/assets/</code>).
+              你可以把截图/GIF/音频放在 <code>projects/omr/assets/</code>，然后在这里引用。
+            </p>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">© <span id="year"></span> Dafei Qiu</div>
+    </footer>
+
+    <script src="../../assets/main.js"></script>
+  </body>
+</html>

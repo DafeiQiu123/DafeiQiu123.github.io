@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Projects | Dafei Qiu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../assets/style.css" />
+  </head>
+
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand"><a href="../">Dafei Qiu<span class="dot">.</span></a></div>
+        <nav>
+          <ul>
+            <li><a href="../education/" data-path="/education/">Education / 教育</a></li>
+            <li><a href="../projects/" data-path="/projects/">Projects / 项目</a></li>
+            <li><a href="../hobby/" data-path="/hobby/">Hobbies / 爱好</a></li>
+            <li><a href="../contact/" data-path="/contact/">Contact / 联系</a></li>
+          </ul>
+        </nav>
+        <div class="controls">
+          <button class="btn" id="themeBtn">🌗 Theme</button>
+          <a class="btn" href="https://github.com/yourusername" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section>
+        <h2 class="section-title">Projects / 项目</h2>
+        <p class="sub">Click a project card to open a detailed page / 点击卡片进入详细页面</p>
+
+        <div class="grid">
+          <!-- Clickable card to /projects/omr/ -->
+          <a class="card three-col" href="omr/">
+            <h3>Optical Music Recognition (OMR) / 乐谱识别</h3>
+            <p>
+              Pipeline converting sheet images → MusicXML → MIDI → audio.
+              从乐谱图片到 MusicXML，再到 MIDI 与音频的完整流水线。
+            </p>
+            <p class="meta">Tech: Python, OpenCV, Audiveris, MusicXML, MIDI</p>
+            <div class="tags">
+              <span class="tag">Read more →</span>
+              <span class="tag">/projects/omr/</span>
+            </div>
+          </a>
+
+          <!-- Normal non-detail card (you can later add /projects/terrain/) -->
+          <article class="card three-col">
+            <h3>Terrain Generator / 地形生成</h3>
+            <p>Procedural 3D terrain via Perlin noise with adjustable parameters. 通过柏林噪声生成可调参数的 3D 地形。</p>
+            <p class="meta">Tech: Java, Perlin Noise, JavaFX</p>
+            <div class="tags">
+              <a class="tag" href="https://github.com/yourusername/terrain-generator" target="_blank" rel="noreferrer">GitHub Repo</a>
+            </div>
+          </article>
+
+          <article class="card three-col">
+            <h3>Reddit Depression Analysis / Reddit 抑郁症状分析</h3>
+            <p>
+              Detects symptom patterns with LDA topics and RoBERTa embeddings; caching for speed.
+              结合 LDA 与 RoBERTa 嵌入识别症状模式，加入缓存优化。
+            </p>
+            <p class="meta">Tech: Python, scikit-learn, PyTorch, Transformers</p>
+            <div class="tags">
+              <a class="tag" href="https://github.com/yourusername/depression-analysis" target="_blank" rel="noreferrer">GitHub Repo</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">© <span id="year"></span> Dafei Qiu</div>
+    </footer>
+
+    <script src="../assets/main.js"></script>
+  </body>
+</html>
