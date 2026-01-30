@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Game Engine (JavaFX) | Dafei Qiu</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../../assets/style.css" />
+</head>
+
+<body>
+    <header>
+        <div class="container nav">
+            <div class="brand">
+                <a href="../../">Dafei Qiu<span class="dot">.</span></a>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="../../education/">Education / 教育</a></li>
+                    <li><a href="../" class="active">Projects / 项目</a></li>
+                    <li><a href="../../hobby/">Hobbies / 爱好</a></li>
+                    <li><a href="../../contact/">Contact / 联系</a></li>
+                </ul>
+            </nav>
+
+            <div class="controls">
+                <button class="btn" id="themeBtn" aria-label="Toggle theme">
+                    🌗 Theme
+                </button>
+                <a class="btn" href="https://github.com/DafeiQiu123/slimebros" target="_blank"
+                    rel="noreferrer">GitHub</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Title -->
+        <section>
+            <span class="pill">🎮 Project / 项目</span>
+            <h1 style="margin: 10px 0 8px">
+                Raw Java 2D Game Engine + Game Development <br />
+                Java 2D 游戏引擎 + 游戏开发
+            </h1>
+
+            <p class="sub">
+                <b>EN.</b> Built a 2D game engine from an empty repository in raw Java, then developed a complete game
+                on top of it. JavaFX is used strictly as the windowing and graphics backend, while all engine logic,
+                systems, and abstractions are implemented from scratch in raw Java.
+                <br />
+                <b>中文.</b> 从空仓库开始，以原生 Java 从零实现 2D 游戏引擎，并在其之上完成完整游戏应用。
+                JavaFX 仅承担窗口管理与图形渲染后端角色，其余引擎逻辑、系统设计与抽象全部由原生 Java 实现。
+            </p>
+
+            <div class="tags" style="margin-top: 14px">
+                <a class="tag" href="../">← Back to Projects / 返回项目列表</a>
+                <a class="tag" href="https://github.com/DafeiQiu123/slimebros" target="_blank" rel="noreferrer">GitHub
+                    Repo</a>
+                <a class="tag" href="https://github.com/DafeiQiu123/slimebros/releases" target="_blank"
+                    rel="noreferrer">
+                    Download for Windows
+                </a>
+            </div>
+
+
+        </section>
+
+        <!-- Detailed Introduction -->
+        <section>
+            <h2 class="section-title">Detailed Introduction / 详细介绍</h2>
+            <div class="grid">
+                <article class="card">
+                    <p class="meta" style="line-height: 1.85; margin: 0">
+                        <b>EN.</b>
+                        SlimeBros is a two-stage project centered on building a 2D game engine from scratch and
+                        validating it through a
+                        complete game application. The first stage focuses on engine development across the semester,
+                        starting from an
+                        empty repository and relying only on <b>JavaFX</b> as the core external library for rendering.
+                        All other subsystems
+                        are implemented in raw Java, with the goal of understanding how fundamental game engine
+                        architecture is constructed
+                        without relying on existing middleware or frameworks.
+                        <br /><br />
+                        The engine is designed around several core subsystems commonly found in professional game
+                        engines, but implemented
+                        manually to expose their internal mechanics.
+                        <br /><br />
+                        <b>Rendering &amp; Viewport.</b>
+                        The engine provides a custom rendering pipeline built on top of JavaFX Canvas and SceneGraph
+                        primitives.
+                        A viewport and camera abstraction manages world-to-screen transformations, allowing the game
+                        world to render
+                        independently of window resolution and UI layout.
+                        <br /><br />
+                        <b>ECS-Inspired Architecture.</b>
+                        GameObjects are lightweight containers composed of modular Components such as Transform, Sprite,
+                        and PhysicsBody.
+                        Behavior is implemented in Systems, which operate over relevant components each frame to handle
+                        movement, collision,
+                        rendering, and input processing. This separation enables flexible composition and a clearer
+                        logic flow.
+                        <br /><br />
+                        <b>Game Loop.</b>
+                        A fixed-timestep game loop coordinates update, physics, and rendering phases, ensuring
+                        consistent behavior across
+                        machines and frame rates. This mirrors real-world engine patterns that balance simulation
+                        stability and rendering
+                        performance.
+                        <br /><br />
+                        <b>UI Screens &amp; Workflow.</b>
+                        The engine includes a screen/state manager supporting menus, gameplay screens, pause overlays,
+                        and transitions
+                        between states (e.g., title → gameplay → game over).
+                        <br /><br />
+                        <b>Resource Management.</b>
+                        Resources such as textures, audio, and level data are handled through a centralized
+                        loading/caching mechanism to
+                        avoid duplication and improve runtime performance.
+                        <br /><br />
+                        In the second stage, the engine is used to develop <b>SlimeBros</b>, a cooperative platformer
+                        located under the
+                        <b>ptl/</b> directory. The game acts as a validation layer showing that the engine
+                        abstractions are sufficient to support real gameplay, physics interactions, camera behavior, and
+                        UI flow without
+                        architectural rewrites.
+                        <br /><br />
+                        <b>中文.</b>
+                        SlimeBros 是一个围绕“从零搭建 2D 游戏引擎，并用完整游戏验证引擎可用性”的两阶段项目。第一阶段贯穿整个学期，从空仓库起步，
+                        仅使用 <b>JavaFX</b> 作为渲染相关的核心外部库，其余全部用原生 Java 实现，目的是训练我们理解：不依赖现成中间件时，
+                        一个游戏引擎的基础架构应如何被手工搭建出来。
+                        <br /><br />
+                        引擎包含多项“专业引擎常见但在本项目中需要手写实现”的核心子系统：
+                        <br /><br />
+                        <b>渲染与视口（Rendering &amp; Viewport）</b>：基于 JavaFX 的 Canvas / SceneGraph 组合构建渲染流水线，并实现
+                        viewport/camera
+                        抽象来管理世界坐标到屏幕坐标的变换，使渲染不受窗口尺寸与 UI 布局影响。
+                        <br /><br />
+                        <b>类 ECS 架构（System / Component / GameObject）</b>：GameObject 作为轻量容器，通过组合不同组件（如 Transform、Sprite、
+                        PhysicsBody）形成实体；具体行为由 System 在每帧对相关组件集合进行处理，覆盖移动、碰撞、渲染与输入等逻辑，使结构更清晰、
+                        更易扩展与调试。
+                        <br /><br />
+                        <b>主循环（Game Loop）</b>：采用固定时间步（fixed timestep）将 update/physics/render 分相协调，保证不同机器与帧率下行为一致，
+                        也更接近真实引擎的稳定模拟方式。
+                        <br /><br />
+                        <b>UI Screen 与状态流程</b>：实现 screen/state 管理，支持菜单、游戏界面、暂停叠层以及状态切换（标题→游戏→结算等）。
+                        <br /><br />
+                        <b>资源管理（Resource Management）</b>：通过统一的加载与缓存机制管理贴图、音频、关卡数据等资源，减少重复加载并提升运行性能。
+                        <br /><br />
+                        第二阶段在该引擎之上开发协作平台游戏 <b>SlimeBros</b>（位于仓库 <b>ptl/</b> 目录）。游戏作为验证层：
+                        证明引擎抽象足以支撑真实玩法、物理交互、相机行为与 UI 流程，而不需要推翻或重写核心架构。
+                    </p>
+                </article>
+            </div>
+        </section>
+
+
+        <!-- Download -->
+        <section>
+            <h2 class="section-title">Download / 下载试玩</h2>
+            <div class="grid">
+                <article class="card">
+                    <p class="meta" style="line-height: 1.8;">
+                        <b>EN.</b>
+                        A prebuilt Windows version is available. Unzip and run directly — no additional setup required.
+                        <br />
+                        <b>中文.</b>
+                        提供 Windows 预编译版本，解压后可直接运行，无需额外配置环境。
+                    </p>
+
+                    <div class="tags" style="margin-top: 12px;">
+                        <a class="tag" href="https://github.com/DafeiQiu123/slimebros/releases" target="_blank"
+                            rel="noreferrer">
+                            Download for Windows
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+
+        <!-- Demo Video -->
+        <section>
+            <h2 class="section-title">Demo / 演示</h2>
+            <div class="grid">
+                <article class="card">
+                    <p class="meta" style="margin-bottom: 12px; font-size: 13px;">
+                        <b>Note.</b> Spoiler alert: the following demo may reveal some puzzle solutions in the game.
+                        <br />
+                        <b>注：</b>以下演示视频可能包含部分关卡解法与谜题机制的展示，请酌情观看。
+                    </p>
+                    <video controls playsinline style="width: 100%; border-radius: 14px">
+                        <source src="./assets/slimebros_demo.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                    <p class="meta" style="margin-top: 10px; font-size: 13px;">
+                        <b>Note.</b> The recorded demo runs at a noticeably lower frame rate due to screen recording
+                        overhead.
+                        The game runs smoothly during normal execution.
+                        <br />
+                        <b>注：</b>该演示视频在录屏过程中因录制开销导致帧率偏低，实际运行时游戏运行流畅。
+                    </p>
+                </article>
+            </div>
+        </section>
+        <!-- Skill Set -->
+        <section>
+            <h2 class="section-title">Skill Set / 技术栈</h2>
+            <div class="grid">
+                <article class="card">
+                    <div class="stack">
+                        <span class="chip">Java </span>
+                        <span class="chip">JavaFX</span>
+
+                        <span class="chip">Custom 2D Rendering Pipeline</span>
+                        <span class="chip">Camera & Viewport Transform</span>
+
+                        <span class="chip">Fixed-Timestep Game Loop</span>
+                        <span class="chip">ECS-Inspired Architecture (Systems / Components)</span>
+
+                        <span class="chip">Input System & Event Handling</span>
+                        <span class="chip">Collision Detection & Response</span>
+                        <span class="chip">Ray Casting</span>
+
+                        <span class="chip">Decision Tree–Based AI Logic</span>
+                        <span class="chip">A* Pathfinding</span>
+                        <span class="chip">Custom Physics System (Momentum Conservation, Friction)</span>
+
+                        <span class="chip">UI Screen Management & State Transitions</span>
+                        <span class="chip">Resource Management (Loading & Caching)</span>
+
+                        <span class="chip">Game Engine Architecture Design</span>
+                        <span class="chip">From-Scratch Engine Development</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">© <span id="year"></span> Dafei Qiu</div>
+    </footer>
+
+    <script src="../../assets/main.js"></script>
+</body>
+
+</html>

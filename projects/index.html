@@ -1,124 +1,156 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Projects | Dafei Qiu</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projects | Dafei Qiu</title>
 
-    <link rel="stylesheet" href="../assets/style.css" />
-  </head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
 
-  <body>
-    <header>
-      <div class="container nav">
-        <div class="brand">
-          <a href="../">Dafei Qiu<span class="dot">.</span></a>
-        </div>
+  <link rel="stylesheet" href="../assets/style.css" />
+</head>
 
-        <nav>
-          <ul>
-            <li><a href="../education/">Education / 教育</a></li>
-            <li><a href="../projects/" class="active">Projects / 项目</a></li>
-            <li><a href="../hobby/">Hobbies / 爱好</a></li>
-            <li><a href="../contact/">Contact / 联系</a></li>
-          </ul>
-        </nav>
-
-        <div class="controls">
-          <button class="btn" id="themeBtn">🌗 Theme</button>
-          <a
-            class="btn"
-            href="https://github.com/yourusername"
-            target="_blank"
-            rel="noreferrer"
-            >GitHub</a
-          >
-        </div>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <a href="../">Dafei Qiu<span class="dot">.</span></a>
       </div>
-    </header>
 
-    <main class="container">
-      <section>
-        <h2 class="section-title">Projects / 项目</h2>
-        <p class="sub">
-          Selected works — click a project to view details<br />
-          代表性项目，点击进入详情页
-        </p>
+      <nav>
+        <ul>
+          <li><a href="../education/">Education / 教育</a></li>
+          <li><a href="../projects/" class="active">Projects / 项目</a></li>
+          <li><a href="../hobby/">Hobbies / 爱好</a></li>
+          <li><a href="../contact/">Contact / 联系</a></li>
+        </ul>
+      </nav>
 
-        <div class="grid">
-          <!-- OMR Project -->
-          <a class="card three-col" href="omr/">
-            <div class="card-media">
-              <img
-                src="omr/assets/cover.png"
-                alt="Staff2Sound OMR cover"
-              />
-            </div>
-
-            <h3 style="margin: 4px 0 0">
-              Staff2Sound (OMR)<br />
-              乐谱识别转 MIDI
-            </h3>
-
-            <div class="card-cta">
-              <span class="tag">Read more →</span>
-            </div>
-          </a>
-
-          <!-- Placeholder / Future project -->
-          <article class="card three-col">
-            <div class="card-media">
-              <img
-                src="../assets/placeholder.png"
-                alt="Coming soon"
-              />
-            </div>
-
-            <h3 style="margin: 4px 0 0">
-              Terrain Generator<br />
-              程序化地形生成
-            </h3>
-
-            <div class="card-cta">
-              <span class="tag">Coming soon</span>
-            </div>
-          </article>
-
-          <!-- Placeholder / Future project -->
-          <article class="card three-col">
-            <div class="card-media">
-              <img
-                src="../assets/placeholder.png"
-                alt="Coming soon"
-              />
-            </div>
-
-            <h3 style="margin: 4px 0 0">
-              Reddit Depression Analysis<br />
-              抑郁症状分析
-            </h3>
-
-            <div class="card-cta">
-              <span class="tag">Coming soon</span>
-            </div>
-          </article>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="container">
-        © <span id="year"></span> Dafei Qiu
+      <div class="controls">
+        <button class="btn" id="themeBtn">🌗 Theme</button>
+        <a class="btn" href="https://github.com/yourusername" target="_blank" rel="noreferrer">GitHub</a>
       </div>
-    </footer>
+    </div>
+  </header>
 
-    <script src="../assets/main.js"></script>
-  </body>
+  <main class="container">
+    <section>
+      <h2 class="section-title">Projects / 项目</h2>
+      <p class="sub">
+        Selected works — click a project to view details<br />
+        代表性项目，点击进入详情页
+      </p>
+
+      <div class="grid">
+        <!-- OMR Project -->
+        <a class="card three-col" href="omr/">
+          <div class="card-media">
+            <img src="omr/assets/cover.png" alt="Staff2Sound OMR cover" />
+          </div>
+
+          <h3 style="margin: 4px 0 0">
+            Staff2Sound: Optical Music Recognition<br />
+            乐谱图像识别
+          </h3>
+
+          <div class="card-cta">
+            <span class="tag">Read more →</span>
+          </div>
+        </a>
+
+        <!-- Placeholder / Future project -->
+        <!-- BPM AutoMixer Project -->
+        <a class="card three-col" href="bpm/">
+          <div class="card-media">
+            <img src="bpm/assets/cover.png" alt="BPM AutoMixer cover" />
+          </div>
+
+          <h3 style="margin: 4px 0 0">
+            BPM: Beat-Driven AutoMixer<br />
+            自动 DJ 混音
+          </h3>
+
+          <div class="card-cta">
+            <span class="tag">Read more →</span>
+          </div>
+        </a>
+
+        <a class="card three-col" href="slimebros/">
+          <div class="card-media">
+            <img src="slimebros/assets/cover.png" alt="SlimeBros cover" />
+          </div>
+
+          <h3 style="margin: 4px 0 0">
+            SlimeBros: Game Engine & Game Development<br />
+            游戏引擎与游戏开发
+          </h3>
+
+          <div class="card-cta">
+            <span class="tag">Read more →</span>
+          </div>
+        </a>
+
+        <!-- 3D-Rendering Project -->
+        <a class="card three-col" href="3d-rendering/">
+          <div class="card-media">
+            <img src="3d-rendering/assets/cover.png" alt="3D Rendering cover" />
+          </div>
+
+          <h3 style="margin: 4px 0 0">
+            Real-Time 3D Graphic Rendering<br />
+            实时 3D 图形渲染
+          </h3>
+
+          <div class="card-cta">
+            <span class="tag">Read more →</span>
+          </div>
+        </a>
+
+        <!-- Reddit depression Analysis Project -->
+        <a class="card three-col" href="depression/">
+          <div class="card-media">
+            <img src="depression/assets/cover.png" alt="depression analysis cover" />
+          </div>
+
+          <h3 style="margin: 4px 0 0">
+            Reddit Depression Analysis<br />
+            抑郁症状分析
+          </h3>
+
+          <div class="card-cta">
+            <span class="tag">Read more →</span>
+          </div>
+        </a>
+        <!-- RealDeal Project -->
+        <a class="card three-col" href="realdeal/">
+          <div class="card-media">
+            <img src="realdeal/assets/cover.png" alt="RealDeal cover" />
+          </div>
+
+          <h3 style="margin: 4px 0 0">
+            RealDeal:
+            Full-Stack Social Platform<br />
+            全栈开发社交平台
+          </h3>
+
+          <div class="card-cta">
+            <span class="tag">Read more →</span>
+          </div>
+        </a>
+
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> Dafei Qiu
+    </div>
+  </footer>
+
+  <script src="../assets/main.js"></script>
+</body>
+
 </html>

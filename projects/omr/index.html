@@ -1,187 +1,190 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Staff2Sound (OMR) | Dafei Qiu</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
-      rel="stylesheet"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Staff2Sound (OMR) | Dafei Qiu</title>
 
-    <link rel="stylesheet" href="../../assets/style.css" />
-  </head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
 
-  <body>
-    <header>
-      <div class="container nav">
-        <div class="brand">
-          <a href="../../">Dafei Qiu<span class="dot">.</span></a>
-        </div>
+  <link rel="stylesheet" href="../../assets/style.css" />
+</head>
 
-        <nav>
-          <ul>
-            <li><a href="../../education/">Education / 教育</a></li>
-            <li><a href="../" class="active">Projects / 项目</a></li>
-            <li><a href="../../hobby/">Hobbies / 爱好</a></li>
-            <li><a href="../../contact/">Contact / 联系</a></li>
-          </ul>
-        </nav>
-
-        <div class="controls">
-          <button class="btn" id="themeBtn" aria-label="Toggle theme">
-            🌗 Theme
-          </button>
-          <a
-            class="btn"
-            href="https://github.com/yourusername"
-            target="_blank"
-            rel="noreferrer"
-            >GitHub</a
-          >
-        </div>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <a href="../../">Dafei Qiu<span class="dot">.</span></a>
       </div>
-    </header>
 
-    <main class="container">
-      <!-- Title -->
-      <section>
-        <span class="pill">🎼 Project / 项目</span>
-        <h1 style="margin: 10px 0 8px">
-          Staff2Sound: Sheet Music → MIDI (OMR) / 乐谱识别转 MIDI
-        </h1>
-        <p class="sub">
-          Music sheet → Train YOLO → YOLO-based symbol detection → Filter-based
-          staffline detection → Pitch reconstruction → MIDI output
-          <br />
-          乐谱 → 训练 YOLO → 符号检测 → 谱线检测 → 音高重建 → MIDI 输出
-        </p>
+      <nav>
+        <ul>
+          <li><a href="../../education/">Education / 教育</a></li>
+          <li><a href="../" class="active">Projects / 项目</a></li>
+          <li><a href="../../hobby/">Hobbies / 爱好</a></li>
+          <li><a href="../../contact/">Contact / 联系</a></li>
+        </ul>
+      </nav>
 
-        <div class="tags" style="margin-top: 14px">
-          <a class="tag" href="../">← Back to Projects / 返回项目列表</a>
-          <a
-            class="tag"
-            href="https://github.com/pli233/staff2sound/tree/main"
-            target="_blank"
-            rel="noreferrer"
-            >GitHub Repo</a
-          >
-          <!-- If you also host the PDF in this folder, change href to ./assets/paper.pdf -->
-          <a class="tag" href="#" target="_blank" rel="noreferrer">Paper PDF</a>
-        </div>
-      </section>
+      <div class="controls">
+        <button class="btn" id="themeBtn" aria-label="Toggle theme">🌗 Theme</button>
+        <a class="btn" href="https://github.com/yourusername" target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </div>
+  </header>
 
-      <!-- Detailed Introduction -->
-      <section>
-        <h2 class="section-title">Detailed Introduction / 项目简介</h2>
-        <div class="grid">
-          <article class="card">
-            <p class="meta" style="line-height: 1.8; margin: 0">
-              <b>EN.</b>
-              Staff2Sound is an Optical Music Recognition (OMR) system that converts
-              sheet music images into structured musical representations and
-              playable results. Instead of directly generating audio end-to-end,
-              we focus on <b>symbol-level detection and reconstruction</b>, which
-              improves interpretability and robustness in dense musical layouts.
-              <br /><br />
-              We fine-tune a <b>YOLO-based object detector</b> to localize musical
-              symbols under staff-aware cropping. To recover staff geometry, we
-              apply a <b>filter-based staffline detection</b> module. Finally, a
-              <b>rule-based pitch reconstruction</b> step maps detected notes to
-              pitches using geometry + music theory constraints, producing a
-              reliable <b>MIDI output</b> for playback and evaluation.
-              <br /><br />
-              <b>中文.</b>
-              Staff2Sound 是一个将乐谱图像转换为结构化音乐表示并输出可播放结果的
-              光学音乐识别（OMR）系统。项目采用 <b>符号级检测 + 规则重建</b>，
-              而非端到端音频生成，从而在密集五线谱场景中具备更强的可解释性与稳定性。
-              <br /><br />
-              我们微调 <b>YOLO</b> 检测音符等关键符号，并用
-              <b>滤波/形态学</b> 方法检测谱线结构；随后通过
-              <b>规则驱动的音高重建</b>（几何关系 + 音乐理论约束）将检测结果映射为音高，
-              最终输出 <b>MIDI</b> 用于试听、编辑与评估。
-            </p>
-          </article>
-        </div>
-      </section>
+  <main class="container">
+    <!-- Title -->
+    <section>
+      <span class="pill">🎼 Project / 项目</span>
+      <h1 style="margin: 10px 0 8px">
+        Staff2Sound: Sheet Music → 乐谱识别转 MIDI
+      </h1>
+      <p class="sub">
+        An interpretable Optical Music Recognition system that converts sheet music images into structured MIDI and
+        playable audio.
+        一个具备可解释性的光学音乐识别系统，将乐谱图像转换为结构化 MIDI 并生成可播放音频。
+      </p>
 
-      <!-- Workflow image -->
-      <section>
-        <h2 class="section-title">Workflow / 系统流程</h2>
-        <div class="grid">
-          <article class="card">
-            <img
-              src="./assets/workflow.png"
-              alt="OMR workflow"
-              class="media-frame"
-            />
-            <p class="meta" style="margin-top: 12px">
-              Full pipeline overview / 全流程概览
-            </p>
-          </article>
-        </div>
-      </section>
+      <div class="tags" style="margin-top: 14px">
+        <a class="tag" href="../">← Back to Projects / 返回项目列表</a>
+        <a class="tag" href="./assets/OMR_paper.pdf" target="_blank" rel="noreferrer">Paper PDF</a>
+        <a class="tag" href="https://github.com/pli233/staff2sound/tree/main" target="_blank" rel="noreferrer">GitHub
+          Repo</a>
+      </div>
+    </section>
 
-      <!-- Example -->
-      <section>
-        <h2 class="section-title">Example Result / 示例结果</h2>
+    <!-- Detailed Introduction -->
+    <section>
+      <h2 class="section-title">Detailed Introduction / 详细介绍</h2>
+      <div class="grid">
+        <article class="card">
+          <p class="meta" style="line-height: 1.85; margin: 0">
+            <b>EN.</b>
+            Staff2Sound is an Optical Music Recognition (OMR) pipeline that converts sheet music images into symbolic
+            representations and playable results. Real-world sheet music often exhibits dense note clusters, varying
+            staff
+            thickness, skew/lighting artifacts, and mixed symbol types. Pure end-to-end approaches can be hard to debug
+            and
+            may fail silently when the layout deviates from the training distribution. Our design therefore prioritizes
+            <b>interpretability</b> and <b>recoverability</b>: we explicitly detect musical primitives and reconstruct
+            pitches through
+            staff-aware geometry and rule constraints.
+            <br /><br />
+            Concretely, we fine-tune a <b>YOLO-based detector</b> to localize key symbols (e.g., noteheads) under a
+            staff-aware
+            cropping strategy to improve robustness in high-density regions. In parallel, we apply a
+            <b>filter-based staffline detection</b> module (e.g., thresholding + morphology / line-enhancing filters) to
+            estimate staff
+            geometry such as line positions and spacing. With staff geometry and detected noteheads, we perform
+            <b>rule-based pitch reconstruction</b>: the vertical position of each notehead is mapped to a staff-relative
+            pitch index,
+            then converted to MIDI pitch using music theory conventions. This decomposition makes the system easier to
+            inspect and iterate: detection errors, staffline estimation errors, and pitch mapping errors can be
+            diagnosed
+            separately and improved step-by-step.
+            <br /><br />
+            The final output is a <b>MIDI file</b> that can be rendered to audio for quick verification, edited in
+            standard DAWs,
+            or evaluated against ground truth. This project demonstrates a practical OMR workflow combining deep
+            learning
+            detection with classical vision and structured reconstruction, aiming for reliable performance and clear
+            failure
+            modes rather than a black-box solution.
+            <br /><br />
+            <b>中文.</b>
+            Staff2Sound 是一个将乐谱图像转换为符号化表示并输出可播放结果的 OMR（光学音乐识别）流程。真实世界乐谱常见问题包括：
+            音符密集导致遮挡、谱线粗细不一、拍照倾斜/光照噪声、符号类型混杂等。纯端到端方法虽然“看起来很优雅”，但在出现异常版式时
+            往往难以定位失败原因。为此，我们更强调 <b>可解释性</b> 与 <b>可恢复性</b>：先检测关键音乐图元，再结合五线谱几何结构进行重建。
+            <br /><br />
+            方法上，我们微调 <b>YOLO 检测器</b>定位关键符号（如音符头），并结合面向五线谱区域的裁剪策略，提高在高密度区域的稳定性。
+            同时，使用 <b>基于滤波/形态学的谱线检测</b> 恢复五线谱几何信息（谱线位置、间距等）。在此基础上进行
+            <b>基于规则的音高重建</b>：利用音符头相对谱线的垂直位置映射到谱表中的音高索引，再按音乐理论转换为 MIDI pitch。
+            这种分解式设计让系统更容易调试：检测、谱线估计、音高映射三个环节可以分别分析与优化。
+            <br /><br />
+            最终输出为 <b>MIDI</b>，可直接渲染为音频做快速试听验证，也可导入 DAW 进行编辑与评估。本项目展示了一个工程可落地的 OMR 思路：
+            深度学习负责“找符号”，传统视觉与结构化规则负责“理解并重建”，强调可靠性与清晰的错误来源。
+          </p>
+        </article>
+      </div>
+    </section>
 
-        <div class="grid">
-          <article class="card two-col">
-            <h3>Input Sheet Music / 输入乐谱</h3>
-            <img
-              src="./assets/input.png"
-              alt="Example input sheet"
-              style="width: 100%; border-radius: 14px; margin-top: 10px"
-            />
-          </article>
+    <!-- Workflow image (wide + scroll) -->
+    <section>
+      <h2 class="section-title">Workflow / 流程图</h2>
+      <div class="grid">
+        <article class="card">
+          <div class="wide-scroll">
+            <img src="./assets/workflow.png" alt="Workflow diagram" />
+          </div>
 
-          <article class="card two-col">
-            <h3>Reconstructed Output / 重建结果</h3>
-            <img
-              src="./assets/output.png"
-              alt="Example output"
-              style="width: 100%; border-radius: 14px; margin-top: 10px"
-            />
-          </article>
+          <div class="helper-row">
+            <span>Scroll horizontally / 横向滚动查看</span>
+            <a class="tag" href="./assets/workflow.png" target="_blank" rel="noreferrer">Open full image / 打开原图</a>
+          </div>
+        </article>
+      </div>
+    </section>
 
-          <article class="card">
-            <h3>Audio Playback & MIDI / 音频播放与 MIDI</h3>
+    <!-- Example -->
+    <section>
+      <h2 class="section-title">Example / 示例</h2>
 
-            <p class="meta" style="margin: 0 0 10px">
-              ▶️ Audio rendered from MIDI / 由 MIDI 渲染生成的音频
-            </p>
+      <div class="grid">
+        <article class="card two-col">
+          <h3>Input / 输入</h3>
+          <img src="./assets/input.png" alt="Example input sheet"
+            style="width: 100%; border-radius: 14px; margin-top: 10px; border: 1px solid color-mix(in oklab, var(--text) 12%, transparent);" />
+        </article>
 
-            <audio controls style="width: 100%; margin: 0 0 12px">
-              <source src="./assets/output.mp3" type="audio/mpeg" />
-              Your browser does not support the audio element.
-            </audio>
+        <article class="card two-col">
+          <h3>Output / 输出</h3>
+          <img src="./assets/output.png" alt="Example output"
+            style="width: 100%; border-radius: 14px; margin-top: 10px; border: 1px solid color-mix(in oklab, var(--text) 12%, transparent);" />
+        </article>
 
-            <div class="tags">
-              <a class="tag" href="./assets/output.mid" download>⬇️ Download MIDI</a>
-              <a class="tag" href="./assets/output.mp3" download>⬇️ Download MP3</a>
-            </div>
+        <article class="card">
+          <h3>Audio Playback / 音频播放</h3>
+          <audio controls style="width: 100%; margin-top: 10px">
+            <source src="./assets/output.mp3" type="audio/mpeg" />
+            Your browser does not support the audio element.
+          </audio>
+        </article>
+      </div>
+    </section>
+    <!-- Skill Set -->
+    <section>
+      <h2 class="section-title">Skill Set / 技术栈</h2>
+      <div class="grid">
+        <article class="card">
+          <div class="stack">
+            <span class="chip">Python</span>
+            <span class="chip">PyTorch</span>
+            <span class="chip">YOLOv8</span>
+            <span class="chip">Computer Vision</span>
+            <span class="chip">OpenCV</span>
+            <span class="chip">Image Preprocessing</span>
+            <span class="chip">Morphology / Filtering</span>
+            <span class="chip">Staffline Detection</span>
+            <span class="chip">Pitch Reconstruction</span>
+            <span class="chip">Music Theory Rules</span>
+            <span class="chip">MusicXML</span>
+            <span class="chip">MIDI</span>
+            <span class="chip">Audio Rendering</span>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
 
-            <p class="meta" style="margin-top: 10px">
-              Note: browsers don’t natively “play MIDI” like audio; we provide
-              the MIDI file for inspection/editing, and an MP3 rendering for
-              direct playback.
-              <br />
-              说明：浏览器通常不能直接播放 MIDI，因此提供 MIDI 下载用于检查/编辑，
-              同时提供 MP3 便于直接试听。
-            </p>
-          </article>
-        </div>
-      </section>
-    </main>
+  <footer>
+    <div class="container">© <span id="year"></span> Dafei Qiu</div>
+  </footer>
 
-    <footer>
-      <div class="container">© <span id="year"></span> Dafei Qiu</div>
-    </footer>
+  <script src="../../assets/main.js"></script>
+</body>
 
-    <script src="../../assets/main.js"></script>
-  </body>
 </html>

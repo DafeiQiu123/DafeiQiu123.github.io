@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RealDeal | Dafei Qiu</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../../assets/style.css" />
+</head>
+
+<body>
+    <header>
+        <div class="container nav">
+            <div class="brand">
+                <a href="../../">Dafei Qiu<span class="dot">.</span></a>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="../../education/">Education / 教育</a></li>
+                    <li><a href="../" class="active">Projects / 项目</a></li>
+                    <li><a href="../../hobby/">Hobbies / 爱好</a></li>
+                    <li><a href="../../contact/">Contact / 联系</a></li>
+                </ul>
+            </nav>
+
+            <div class="controls">
+                <button class="btn" id="themeBtn" aria-label="Toggle theme">🌗 Theme</button>
+                <a class="btn" href="https://github.com/DarrenLi1127/RealDeal" target="_blank"
+                    rel="noreferrer">GitHub</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Title -->
+        <section>
+            <span class="pill">🧩 Project / 项目</span>
+            <h1 style="margin: 10px 0 8px">
+                RealDeal — Full-Stack Social Media Platform<br />
+                工业级全栈社交平台
+            </h1>
+
+            <p class="sub">
+                <b>EN.</b> An industry-style social platform supporting posts, multi-image uploads, comments & nested
+                replies, likes/stars, leveling, and personalized recommendations.<br />
+                <b>中文.</b> 面向真实产品形态的社交平台：发帖（多图）、评论/嵌套回复、点赞/收藏、经验值等级系统与个性化推荐。
+            </p>
+
+            <div class="tags" style="margin-top: 14px">
+                <a class="tag" href="../">← Back to Projects / 返回项目列表</a>
+                <a class="tag" href="https://github.com/DarrenLi1127/RealDeal" target="_blank" rel="noreferrer">GitHub
+                    Repo</a>
+            </div>
+        </section>
+
+        <!-- Detailed Introduction -->
+        <section>
+            <h2 class="section-title">Detailed Introduction / 详细介绍</h2>
+            <div class="grid">
+                <article class="card">
+                    <p class="meta" style="line-height: 1.85; margin: 0">
+                        <b>EN.</b><br />
+                        RealDeal is a full-stack social media platform designed with “industry-level” product
+                        requirements in mind:
+                        authenticated user workflows, rich post creation (including multi-image uploads), interactive
+                        engagement
+                        (likes, stars/bookmarks, comments, and nested replies), content categorization by genres, user
+                        progression
+                        via experience points and leveling, and a recommendation module to personalize content
+                        discovery.
+                        <br /><br />
+                        The system is implemented with a clear separation between frontend and backend. On the backend,
+                        a Spring Boot
+                        service exposes REST APIs and follows a layered architecture (Controller → Service → Repository
+                        → Model/DTO),
+                        making business logic testable and maintainable. The frontend is built with React + TypeScript
+                        using route-based
+                        pages (dashboard/feed, create post, search results, and profile workflows), with a focus on
+                        reusable UI components
+                        and end-to-end test coverage.
+                        <br /><br />
+                        <b>中文.</b><br />
+                        RealDeal 是一个全栈社交平台项目，目标是贴近工业级产品需求：完整的用户登录/身份体系、多图发帖、
+                        点赞/收藏/评论与嵌套回复、基于 Genre 的内容分类、经验值与等级成长系统，以及用于内容发现的个性化推荐模块。
+                        <br /><br />
+                        项目采用前后端分离架构。后端基于 Spring Boot 提供 REST API，并采用 Controller → Service → Repository →
+                        Model/DTO 的分层组织方式，使业务逻辑可维护、可扩展、易测试。前端使用 React + TypeScript 进行页面路由组织，
+                        通过可复用组件构建核心交互，同时配合端到端测试保证关键用户路径的可靠性。
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Key Features -->
+        <section>
+            <h2 class="section-title">Key Features / 核心功能</h2>
+            <div class="grid">
+                <article class="card two-col">
+                    <h3>Social Interactions / 社交互动</h3>
+                    <p class="meta" style="line-height: 1.8">
+                        <b>EN.</b> Posts with multi-image support; likes, stars (bookmarks), comments, and nested
+                        replies.<br />
+                        <b>中文.</b> 多图发帖；点赞、收藏；评论与嵌套回复。
+                    </p>
+                </article>
+
+                <article class="card two-col">
+                    <h3>Discovery & Progression / 发现与成长</h3>
+                    <p class="meta" style="line-height: 1.8">
+                        <b>EN.</b> Genre-based categorization, experience points, leveling, and personalized
+                        recommendation ranking.<br />
+                        <b>中文.</b> Genre 分类、经验值与等级体系、个性化推荐排序。
+                    </p>
+                </article>
+
+                <article class="card">
+                    <h3>Authentication & UX / 登录与用户体验</h3>
+                    <p class="meta" style="line-height: 1.8">
+                        <b>EN.</b> Clerk-based authentication flow integrated into the frontend, enabling protected
+                        routes and profile workflows.<br />
+                        <b>中文.</b> 集成 Clerk 登录体系，支持受保护路由与用户资料管理流程。
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Architecture -->
+        <section>
+            <h2 class="section-title">Architecture / 架构设计</h2>
+            <div class="grid">
+                <article class="card two-col">
+                    <h3>Backend — Spring Boot / 后端</h3>
+                    <p class="meta" style="line-height: 1.8; margin: 0">
+                        <b>Modules:</b> Authentication, Post, Comment, Genre, Experience, Recommendation<br />
+                        <b>Layers:</b> Controller → Service → Repository (JPA) → Model/DTO<br /><br />
+                        <b>中文:</b> 模块化划分（认证/帖子/评论/分类/经验/推荐），并用分层架构组织业务逻辑与数据访问，便于维护与单元测试。
+                    </p>
+                </article>
+
+                <article class="card two-col">
+                    <h3>Frontend — React + TypeScript / 前端</h3>
+                    <p class="meta" style="line-height: 1.8; margin: 0">
+                        <b>Routes:</b> Dashboard/Feed, Create Post, Search Results, Profile<br />
+                        <b>Components:</b> Catalog with pagination & caching, nested comments UI, reusable UI widgets
+                        (e.g., ExpBar, SearchBar)<br /><br />
+                        <b>中文:</b> 基于路由组织页面；用组件化方式实现内容流、分页/缓存、评论树与资料设置等功能。
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Testing -->
+        <section>
+            <h2 class="section-title">Testing / 测试覆盖</h2>
+            <div class="grid">
+                <article class="card">
+                    <p class="meta" style="line-height: 1.85; margin: 0">
+                        <b>EN.</b> The project includes both backend unit tests and frontend E2E tests to validate core
+                        user flows:
+                        creating posts with images, browsing paginated feeds, opening post details, searching, reacting
+                        (like/star),
+                        viewing and replying to comments, and profile updates (username + genre preferences). Backend
+                        tests cover
+                        controllers/services across user profiles, experience logic (daily bonus), post creation &
+                        pagination,
+                        reactions (including self-like guards), genres, recommendation ranking, and S3 upload mechanics.
+                        <br /><br />
+                        <b>中文.</b> 项目同时包含后端单元测试与前端端到端测试，覆盖关键用户路径：多图发帖、分页浏览、
+                        搜索、点赞/收藏、评论/回复、资料修改与偏好设置等。后端测试覆盖控制器与服务层的核心逻辑，
+                        包括经验值与每日奖励、帖子创建/分页/搜索、互动行为的计数与规则保护、推荐排序与上传链路等。
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Skill Set -->
+        <section>
+            <h2 class="section-title">Skill Set / 技术栈</h2>
+            <div class="grid">
+                <article class="card">
+                    <div class="stack">
+                        <span class="chip">Java 17</span>
+                        <span class="chip">Spring Boot 3</span>
+                        <span class="chip">REST API Design</span>
+                        <span class="chip">JPA / Hibernate</span>
+                        <span class="chip">PostgreSQL</span>
+                        <span class="chip">React 18</span>
+                        <span class="chip">TypeScript</span>
+                        <span class="chip">React Router</span>
+                        <span class="chip">Clerk Auth</span>
+                        <span class="chip">Pagination & Client Caching</span>
+                        <span class="chip">Nested Comments</span>
+                        <span class="chip">Recommendation Ranking</span>
+                        <span class="chip">Unit Testing (Backend)</span>
+                        <span class="chip">Playwright E2E (Frontend)</span>
+                        <span class="chip">Full-Stack Engineering</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+       
+    </main>
+
+    <footer>
+        <div class="container">© <span id="year"></span> Dafei Qiu</div>
+    </footer>
+
+    <script src="../../assets/main.js"></script>
+</body>
+
+</html>

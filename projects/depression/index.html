@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Reddit Depression Symptom Detection | Dafei Qiu</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../../assets/style.css" />
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <a href="../../">Dafei Qiu<span class="dot">.</span></a>
+        </div>
+
+        <nav>
+          <ul>
+            <li><a href="../../education/">Education / 教育</a></li>
+            <li><a href="../" class="active">Projects / 项目</a></li>
+            <li><a href="../../hobby/">Hobbies / 爱好</a></li>
+            <li><a href="../../contact/">Contact / 联系</a></li>
+          </ul>
+        </nav>
+
+        <div class="controls">
+          <button class="btn" id="themeBtn" aria-label="Toggle theme">🌗 Theme</button>
+          <a
+            class="btn"
+            href="https://github.com/DafeiQiu123"
+            target="_blank"
+            rel="noreferrer"
+            >GitHub</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- Title -->
+      <section>
+        <span class="pill">🧠 Project / 项目</span>
+        <h1 style="margin: 10px 0 8px">
+          Reddit Depression Symptom Detection<br />
+          Reddit 抑郁症状检测（论文复现）
+        </h1>
+
+        <p class="sub">
+          <b>EN.</b>
+          A reproduction study on fine-grained depression symptom detection from Reddit
+          using LDA topic modeling and DistilRoBERTa embeddings.<br />
+          <b>中文.</b>
+          基于 LDA 主题建模与 DistilRoBERTa 表示的 Reddit 细粒度抑郁症状检测论文复现项目。
+        </p>
+
+        <div class="tags" style="margin-top: 14px">
+          <a class="tag" href="../">← Back to Projects / 返回项目列表</a>
+          <a
+            class="tag"
+            href="https://dl.acm.org/doi/pdf/10.1145/3578503.3583621"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Original Paper
+          </a>
+          <a
+            class="tag"
+            href="https://github.com/DafeiQiu123"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub Repo
+          </a>
+        </div>
+      </section>
+
+      <!-- Detailed Introduction -->
+      <section>
+        <h2 class="section-title">Detailed Introduction / 详细介绍</h2>
+        <div class="grid">
+          <article class="card">
+            <p class="meta" style="line-height: 1.85; margin: 0">
+              <b>EN.</b><br />
+              This project reproduces a recent research study on
+              <b>fine-grained depression symptom detection from Reddit posts</b>.
+              Instead of modeling depression as a single binary label, the task is
+              formulated as a collection of <b>symptom-level classification problems</b>,
+              where each symptom (e.g., anhedonia, anxiety, sleep problems) is evaluated
+              independently against a control group.
+              <br /><br />
+              The pipeline closely follows the original paper. We begin with large-scale
+              <b>dataset preprocessing</b>, including text normalization, tokenization,
+              and filtering using <code>happiestfuntokenizing</code>. Two complementary
+              representation strategies are then applied: topic-based modeling via
+              <b>Latent Dirichlet Allocation (LDA)</b>, and contextualized text embeddings
+              extracted from a <b>pre-trained DistilRoBERTa</b> model.
+              <br /><br />
+              For LDA, each Reddit post is represented by its topic distribution, yielding
+              interpretable low-dimensional embeddings that capture coarse semantic
+              patterns associated with depressive language. For RoBERTa, contextual
+              embeddings preserve fine-grained linguistic cues and semantic nuance.
+              <br /><br />
+              Each symptom is evaluated using a <b>binary classification setup</b>
+              (Symptom vs. Control) with <b>5-fold cross-validation</b> to ensure robustness
+              under class imbalance. Performance is measured using AUC, consistent with
+              the original work.
+              <br /><br />
+              <b>中文.</b><br />
+              本项目复现了一项关于 <b>基于 Reddit 文本的细粒度抑郁症状检测</b> 的研究。
+              与将抑郁作为单一标签不同，该方法将任务拆解为多个
+              <b>症状级别的二分类问题</b>，分别对快感缺失、焦虑、睡眠问题等症状进行建模。
+              <br /><br />
+              实验流程严格遵循原论文设计。首先进行系统性
+              <b>文本预处理</b>（清洗、分词、规范化），并使用
+              <code>happiestfuntokenizing</code> 保证处理一致性。随后分别构建
+              <b>LDA 主题嵌入</b> 与 <b>DistilRoBERTa 上下文嵌入</b>，
+              用于刻画不同层次的语言特征。
+              <br /><br />
+              每个症状均采用 <b>5 折交叉验证</b> 的“症状 vs 对照组”二分类设置，
+              使用 AUC 指标进行评估，从而确保结果的稳定性与可比性。
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Results Comparison -->
+      <section>
+        <h2 class="section-title">Results Comparison / 结果对比</h2>
+        <div class="grid">
+          <article class="card">
+            <div style="overflow-x: auto">
+              <table style="width: 100%; border-collapse: collapse">
+                <thead>
+                  <tr>
+                    <th style="text-align:left; padding:10px;">Symptom</th>
+                    <th style="padding:10px;">Paper LDA</th>
+                    <th style="padding:10px;">Our LDA</th>
+                    <th style="padding:10px;">Paper RoBERTa</th>
+                    <th style="padding:10px;">Our RoBERTa</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Anger</td><td>0.794</td><td><b>0.829</b></td><td>0.928</td><td>0.819</td></tr>
+                  <tr><td>Anhedonia</td><td>0.906</td><td><b>0.954</b></td><td>0.956</td><td>0.899</td></tr>
+                  <tr><td>Anxiety</td><td>0.837</td><td><b>0.895</b></td><td>0.952</td><td>0.867</td></tr>
+                  <tr><td>Disordered eating</td><td>0.905</td><td><b>0.950</b></td><td>0.952</td><td>0.883</td></tr>
+                  <tr><td>Loneliness</td><td>0.806</td><td><b>0.839</b></td><td>0.907</td><td>0.765</td></tr>
+                  <tr><td>Sad mood</td><td>0.788</td><td><b>0.799</b></td><td>0.919</td><td>0.763</td></tr>
+                  <tr><td>Self-loathing</td><td>0.815</td><td><b>0.844</b></td><td>0.922</td><td>0.800</td></tr>
+                  <tr><td>Sleep problem</td><td>0.909</td><td><b>0.973</b></td><td>0.956</td><td><b>0.923</b></td></tr>
+                  <tr><td>Somatic complaint</td><td>0.880</td><td><b>0.896</b></td><td>0.925</td><td>0.816</td></tr>
+                  <tr><td>Worthlessness</td><td>0.700</td><td>0.694</td><td>0.897</td><td>0.741</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p class="meta" style="margin-top: 14px; line-height: 1.8">
+              <b>EN.</b>
+              Overall, LDA-based models match or outperform the paper’s reported results
+              across most symptoms, highlighting the effectiveness and interpretability
+              of topic modeling for mental health NLP tasks. RoBERTa-based results follow
+              the same trends as the original study, though with slightly lower absolute
+              scores due to training and resource differences.
+              <br /><br />
+              <b>中文.</b>
+              整体来看，基于 LDA 的模型在多数症状上达到或超过论文结果，说明主题建模在
+              心理健康文本分析中具备较强的效果与可解释性。RoBERTa 结果在趋势上与论文一致，
+              但数值略低，主要受训练配置与计算资源差异影响。
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <!-- Skill Set -->
+      <section>
+        <h2 class="section-title">Skill Set / 技术栈</h2>
+        <div class="grid">
+          <article class="card">
+            <div class="stack">
+              <span class="chip">Python</span>
+              <span class="chip">NLP Pipeline</span>
+              <span class="chip">Reddit Text Preprocessing</span>
+              <span class="chip">LDA Topic Modeling (Gensim)</span>
+              <span class="chip">DistilRoBERTa</span>
+              <span class="chip">Transformers</span>
+              <span class="chip">PyTorch</span>
+              <span class="chip">scikit-learn</span>
+              <span class="chip">5-Fold Cross Validation</span>
+              <span class="chip">AUC Evaluation</span>
+              <span class="chip">Paper Reproduction</span>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">© <span id="year"></span> Dafei Qiu</div>
+    </footer>
+
+    <script src="../../assets/main.js"></script>
+  </body>
+</html>

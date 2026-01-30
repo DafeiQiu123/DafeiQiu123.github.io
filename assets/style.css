@@ -306,3 +306,28 @@ footer {
     grid-template-columns: 0.95fr 1.05fr;
   }
 }
+
+/* Wide workflow image: horizontal scroll container */
+.wide-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 16px;
+  border: 1px solid color-mix(in oklab, var(--text) 12%, transparent);
+  background: color-mix(in oklab, var(--card) 80%, transparent);
+}
+
+.wide-scroll img {
+  display: block;
+  height: auto;
+  max-width: none;        /* key: don't force-fit to container width */
+}
+
+.helper-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 13px;
+}

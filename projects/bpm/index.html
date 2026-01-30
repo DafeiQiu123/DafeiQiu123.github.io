@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BPM AutoMixer | Dafei Qiu</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../../assets/style.css" />
+</head>
+
+<body>
+    <header>
+        <div class="container nav">
+            <div class="brand">
+                <a href="../../">Dafei Qiu<span class="dot">.</span></a>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="../../education/">Education / 教育</a></li>
+                    <li><a href="../" class="active">Projects / 项目</a></li>
+                    <li><a href="../../hobby/">Hobbies / 爱好</a></li>
+                    <li><a href="../../contact/">Contact / 联系</a></li>
+                </ul>
+            </nav>
+
+            <div class="controls">
+                <button class="btn" id="themeBtn" aria-label="Toggle theme">🌗 Theme</button>
+                <a class="btn" href="https://github.com/DafeiQiu123/automixer" target="_blank"
+                    rel="noreferrer">GitHub</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Title -->
+        <section>
+            <span class="pill">🎧 Project / 项目</span>
+            <h1 style="margin: 10px 0 8px">
+                Beat-Driven Program Modeling for Automatic Music Mixing<br />
+                节拍驱动的自动 DJ 混音建模
+            </h1>
+
+            <p class="sub">
+                <b>EN.</b> A hybrid learning + DSP system that predicts DJ-style transition curves and renders
+                beat-aligned mixes.<br />
+                <b>中文.</b> 将深度学习与 DSP 结合，预测 DJ 过渡控制曲线并渲染节拍对齐的混音结果。
+            </p>
+
+            <div class="tags" style="margin-top: 14px">
+                <a class="tag" href="../">← Back to Projects / 返回项目列表</a>
+                <a class="tag" href="./assets/BPM_paper.pdf" target="_blank" rel="noreferrer">Paper PDF</a>
+                <a class="tag" href="https://github.com/DafeiQiu123/automixer" target="_blank" rel="noreferrer">GitHub
+                    Repo</a>
+            </div>
+        </section>
+
+        <!-- Detailed Introduction -->
+        <section>
+            <h2 class="section-title">Detailed Introduction / 详细介绍</h2>
+            <div class="grid">
+                <article class="card">
+                    <p class="meta" style="line-height: 1.85; margin: 0">
+                        <b>EN.</b>
+                        This project proposes a hybrid learning–signal-processing framework for generating professional
+                        DJ-style
+                        transitions between two songs. Instead of synthesizing raw audio (which is expensive and often
+                        unstable),
+                        we use a Transformer to predict <b>time-varying DSP control parameters</b> such as crossfade
+                        envelopes,
+                        multi-band EQ gains, HPF/LPF filter sweeps, and transition duration. A deterministic DSP
+                        renderer then
+                        applies these curves to the original audio to produce high-fidelity, beat-aligned mixes.
+                        <br /><br />
+                        We encode the ending segment of song A and the beginning segment of song B with <b>MERT</b> as a
+                        high-level
+                        music encoder, and inject beat/tempo information through <b>BPM-aware positional encoding</b> to
+                        improve
+                        rhythmic alignment. The Transformer is trained with a masked-middle prediction setup to infer
+                        transition
+                        embeddings, which are decoded into structured DSP curves. This design keeps the system
+                        <b>interpretable</b> (mixing is described by familiar DSP knobs) and <b>stable</b>
+                        (audio is rendered deterministically rather than generated).
+                        <br /><br />
+                        <b>中文.</b>
+                        本项目提出一种“深度学习 + 信号处理”的自动混音方案，用于生成专业 DJ 风格的两首歌过渡。我们不直接生成原始音频
+                        （成本高且不稳定），而是训练 Transformer 预测 <b>随时间变化的 DSP 控制参数</b>，例如 crossfade 包络、多段 EQ 增益、
+                        高通/低通滤波扫频、过渡长度等。随后通过一个确定性的 DSP 渲染器将这些曲线应用到原始音频上，
+                        从而生成高保真、节拍对齐的混音结果。
+                        <br /><br />
+                        编码器端使用 <b>MERT</b> 提取 song A 尾段与 song B 头段的结构化音乐表示，并通过
+                        <b>BPM 感知的位置编码</b> 显式注入节拍与速度信息，以增强节奏对齐能力。
+                        Transformer 通过 masked-middle 预测生成过渡段表示，并解码为结构化 DSP 曲线。
+                        该设计兼具 <b>可解释性</b>（输出即为直观的调音参数曲线）与 <b>稳定性</b>
+                        （最终音频由 DSP 确定性渲染，而非黑盒生成）。
+                    </p>
+                </article>
+            </div>
+        </section>
+
+
+        <!-- Key Ideas -->
+        <section>
+            <h2 class="section-title">Key Ideas / 核心设计</h2>
+            <div class="grid">
+                <article class="card two-col">
+                    <h3>DSP-as-Program / 用 DSP 当“程序”</h3>
+                    <p class="meta" style="line-height: 1.8">
+                        <b>EN.</b> Predict structured DSP control curves rather than generating raw waveforms.
+                        <br />
+                        <b>中文.</b> 预测结构化的 DSP 控制曲线，而不是直接生成音频波形。
+                    </p>
+                </article>
+
+                <article class="card two-col">
+                    <h3>BPM-aware Alignment / BPM 节拍对齐</h3>
+                    <p class="meta" style="line-height: 1.8">
+                        <b>EN.</b> Inject BPM-based beat position encoding to align transitions with rhythmic structure.
+                        <br />
+                        <b>中文.</b> 使用 BPM 驱动的位置编码，让过渡在节拍层面保持一致。
+                    </p>
+                </article>
+
+                <article class="card">
+                    <h3>Model + Renderer / 模型 + 渲染器分工</h3>
+                    <p class="meta" style="line-height: 1.8">
+                        <b>EN.</b> The model predicts parameters; the DSP renderer guarantees fidelity and stability.
+                        <br />
+                        <b>中文.</b> 模型负责预测参数，DSP 渲染器负责稳定、高保真的最终音频输出。
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Audio Examples -->
+        <section>
+            <h2 class="section-title">Audio Examples / 音频示例</h2>
+            <div class="grid">
+                <article class="card">
+                    <h3>Song A / 原曲 A</h3>
+                    <audio controls style="width: 100%; margin-top: 10px">
+                        <source src="./assets/songA.mp3" type="audio/mpeg" />
+                    </audio>
+                </article>
+
+                <article class="card">
+                    <h3>Song B / 原曲 B</h3>
+                    <audio controls style="width: 100%; margin-top: 10px">
+                        <source src="./assets/songB.mp3" type="audio/mpeg" />
+                    </audio>
+                </article>
+
+                <article class="card">
+                    <h3>Full Mix Output / 最终混音输出</h3>
+                    <audio controls style="width: 100%; margin-top: 10px">
+                        <source src="./assets/full_mix_output.mp3" type="audio/mpeg" />
+                    </audio>
+                </article>
+            </div>
+        </section>
+
+        <!-- Skill Set -->
+        <section>
+            <h2 class="section-title">Skill Set / 技术栈</h2>
+            <div class="grid">
+                <article class="card">
+                    <div class="stack">
+                        <span class="chip">Python</span>
+                        <span class="chip">PyTorch</span>
+                        <span class="chip">Transformer</span>
+                        <span class="chip">MERT</span>
+                        <span class="chip">DSP</span>
+                        <span class="chip">Audio Signal Processing</span>
+                        <span class="chip">BPM-aware Encoding</span>
+                        <span class="chip">EQ / HPF / LPF</span>
+                        <span class="chip">Music Information Retrieval</span>
+                        <span class="chip">Automatic DJ Mixing</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+
+
+    <footer>
+        <div class="container">© <span id="year"></span> Dafei Qiu</div>
+    </footer>
+
+    <script src="../../assets/main.js"></script>
+</body>
+
+</html>

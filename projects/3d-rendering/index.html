@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>3D-Rendering Engine | Dafei Qiu</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="../../assets/style.css" />
+</head>
+
+<body>
+    <header>
+        <div class="container nav">
+            <div class="brand">
+                <a href="../../">Dafei Qiu<span class="dot">.</span></a>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="../../education/">Education / 教育</a></li>
+                    <li><a href="../" class="active">Projects / 项目</a></li>
+                    <li><a href="../../hobby/">Hobbies / 爱好</a></li>
+                    <li><a href="../../contact/">Contact / 联系</a></li>
+                </ul>
+            </nav>
+
+            <div class="controls">
+                <button class="btn" id="themeBtn" aria-label="Toggle theme">
+                    🌗 Theme
+                </button>
+                <a class="btn" href="https://github.com/DafeiQiu123/3d-rendering" target="_blank"
+                    rel="noreferrer">GitHub</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- Title -->
+        <section>
+            <span class="pill">🖥️ Project / 项目</span>
+            <h1 style="margin: 10px 0 8px">
+                Real-Time 3D Rendering Engine<br />
+                实时 3D 渲染引擎
+            </h1>
+
+            <p class="sub">
+                A GPU-based real-time rendering project with shader lighting, shadow mapping,
+                FXAA, model loading, scene hierarchy, and interactive camera controls — plus
+                an understanding of CPU ray casting and BVH acceleration for realistic effects.
+                <br />
+                基于 GPU 的实时渲染项目，包含着色器光照、阴影贴图、抗锯齿、模型加载、场景层次、
+                交互相机控制，同时融入了对 CPU 光线投射与 BVH 加速等真实感算法的理解。
+            </p>
+
+            <div class="tags" style="margin-top: 14px">
+                <a class="tag" href="../">← Back to Projects / 返回项目列表</a>
+                <a class="tag" href="https://github.com/DafeiQiu123/3d-rendering" target="_blank"
+                    rel="noreferrer">GitHub Repo</a>
+            </div>
+        </section>
+
+        <!-- Detailed Introduction -->
+        <section>
+            <h2 class="section-title">Detailed Introduction / 详细介绍</h2>
+            <div class="grid">
+                <article class="card">
+                    <p class="meta" style="line-height: 1.85; margin: 0">
+
+                        <b>EN.</b>
+                        This project implements a real-time 3D graphics rendering system in C++ using Qt Creator and the
+                        Qt3D/OpenGL pipeline for interactive visualization. The engine leverages GPU rasterization via
+                        GLSL shaders to compute per-vertex and per-fragment lighting in real time, fully utilizing the
+                        programmable graphics pipeline.
+
+                        The core rendering features include loading 3D models in .obj format, hierarchical scene
+                        transformations, and per-pixel Phong shading computed entirely on the GPU. In the shader
+                        implementation,
+                        vertex positions and normals are transformed by model/view/projection matrices, then passed to
+                        fragment shaders where ambient, diffuse, and specular lighting are computed using GLSL.
+
+                        Shadow mapping is implemented as a real-time shadowing technique. The scene is first rendered
+                        from
+                        the perspective of a directional light into a depth texture (the shadow map). In the main render
+                        pass,
+                        fragment positions are transformed into the light's clip space and compared against the shadow
+                        map
+                        to determine occlusion, enabling dynamic shadows in real time.
+
+                        To improve visual quality, Fast Approximate Anti-Aliasing (FXAA) is applied at the
+                        shader/post-process
+                        stage, smoothing jagged edges in the rasterized output without significant performance cost.
+
+                        Beyond the GPU pipeline, I have explored CPU-based ray casting and ray tracing techniques in
+                        prior work
+                        to gain deeper insight into realistic optical effects such as reflection and refraction. In
+                        those
+                        implementations, rays are recursively spawned according to material properties to simulate
+                        mirror-like
+                        surfaces and transparent media. To optimize performance, Bounding Volume Hierarchy (BVH)
+                        acceleration
+                        structures are used to prune intersection tests and maintain practical ray traversal
+                        performance.
+
+                        An interactive camera and viewport are integrated, allowing scene navigation via mouse and
+                        keyboard.
+                        Resource management routines encapsulate mesh, texture, and shader program loading to reduce
+                        duplication and improve runtime performance.
+
+                        <br /><br />
+
+                        <b>中文.</b>
+                        本项目实现了一个实时 3D 图形渲染系统，使用 C++ 与 Qt Creator，并基于 Qt3D/OpenGL
+                        渲染管线实现交互式可视化。引擎利用 GPU Rasterization 和 GLSL 着色器进行实时光照计算，
+                        完整利用可编程渲染管线的能力。
+
+                        核心渲染功能包括从 .obj 模型文件加载几何体数据、层次场景变换，以及完全在 GPU 中
+                        执行的 Phong 着色（包括环境光、漫反射和镜面反射分量）。在着色器中，顶点坐标和法线
+                        通过模型/视图/投影矩阵变换后传递到片元着色器中进行光照计算。
+
+                        阴影贴图技术被实现为实时阴影方法：先从光源视角将场景渲染到深度纹理中（shadow map），
+                        然后在主渲染阶段将片元位置转换到光源空间并与阴影贴图比较，从而判断是否可见，支持动态
+                        阴影。
+
+                        为了提升视觉质量，在 shader / 后处理阶段加入了快速近似抗锯齿（FXAA），在不显著损失
+                        性能的前提下平滑了锯齿边缘。
+
+                        除了 GPU 渲染管线外，我在早期实践中也研究过基于 CPU 的光线投射与光线追踪技术以深入
+                        理解真实光学效果，如反射和折射。在这些实现中，根据材质属性递归生成射线以模拟镜面和
+                        透明表面，通过包围体层次结构（BVH）优化求交测试以提高性能。
+
+                        最后，引入了交互相机和视口控制，通过鼠标和键盘进行场景导航，同时封装了资源加载机制
+                        以提高运行效率和复用性。
+
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Demo Video -->
+        <section>
+            <h2 class="section-title">Demo / 演示视频</h2>
+            <div class="grid">
+                <article class="card">
+                    <video controls playsinline style="width: 100%; border-radius: 14px">
+                        <source src="./assets/rendering_demo.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                </article>
+            </div>
+        </section>
+
+        <!-- Skill Set -->
+        <section>
+            <h2 class="section-title">Skill Set / 技术栈</h2>
+            <div class="grid">
+                <article class="card">
+                    <div class="stack">
+                        <span class="chip">C++ (Modern)</span>
+                        <span class="chip">Qt Creator / Qt3D</span>
+                        <span class="chip">OpenGL Rasterization</span>
+                        <span class="chip">GLSL Shader Programming</span>
+                        <span class="chip">Phong Shading (GPU)</span>
+                        <span class="chip">Shadow Mapping</span>
+                        <span class="chip">FXAA Anti-Aliasing</span>
+                        <span class="chip">Scene Graph / Hierarchical Transforms</span>
+                        <span class="chip">Interactive Camera & Viewport</span>
+                        <span class="chip">OBJ Model Loading</span>
+                        <span class="chip">Resource Management</span>
+                        <span class="chip">CPU Ray Casting & Ray Tracing</span>
+                        <span class="chip">Reflection & Refraction Simulation</span>
+                        <span class="chip">Bounding Volume Hierarchy (BVH)</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">© <span id="year"></span> Dafei Qiu</div>
+    </footer>
+
+    <script src="../../assets/main.js"></script>
+</body>
+
+</html>

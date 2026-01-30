@@ -3,103 +3,128 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dafei Qiu | Portfolio</title>
-    <meta name="description" content="Dafei Qiu — Education, Projects, Hobbies, Contact" />
+    <title>Dafei Qiu</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+
     <link rel="stylesheet" href="assets/style.css" />
+
+    <style>
+      /* ===== Landing Layout ===== */
+
+      main.landing-wrapper {
+        min-height: calc(100vh - 72px); /* 72px ≈ header 高度 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .landing {
+        text-align: center;
+        max-width: 720px;
+        padding: 24px;
+      }
+
+      .landing h1 {
+        font-size: clamp(36px, 6vw, 56px);
+        font-weight: 800;
+        margin: 0 0 20px;
+        letter-spacing: 0.5px;
+      }
+
+      .intro {
+        font-size: 16px;
+        line-height: 1.9;
+        animation: breathe 6s ease-in-out infinite;
+        transition: color 0.4s ease;
+      }
+
+      .intro:hover {
+        color: var(--text);
+        animation-play-state: paused;
+      }
+
+      @keyframes breathe {
+        0% {
+          color: color-mix(in oklab, var(--text) 35%, transparent);
+        }
+        50% {
+          color: color-mix(in oklab, var(--text) 80%, transparent);
+        }
+        100% {
+          color: color-mix(in oklab, var(--text) 35%, transparent);
+        }
+      }
+
+      .landing .tags {
+        justify-content: center;
+        margin-top: 28px;
+      }
+    </style>
   </head>
 
   <body>
+    <!-- Header（完全保留你原来的） -->
     <header>
       <div class="container nav">
-        <div class="brand"><a href="./">Dafei Qiu<span class="dot">.</span></a></div>
+        <div class="brand">
+          <a href="./">Dafei Qiu<span class="dot">.</span></a>
+        </div>
 
         <nav>
           <ul>
-            <li><a href="education/" data-path="/education/">Education / 教育</a></li>
-            <li><a href="projects/" data-path="/projects/">Projects / 项目</a></li>
-            <li><a href="hobby/" data-path="/hobby/">Hobbies / 爱好</a></li>
-            <li><a href="contact/" data-path="/contact/">Contact / 联系</a></li>
+            <li><a href="education/">Education / 教育</a></li>
+            <li><a href="projects/">Projects / 项目</a></li>
+            <li><a href="hobby/">Hobbies / 爱好</a></li>
+            <li><a href="contact/">Contact / 联系</a></li>
           </ul>
         </nav>
 
         <div class="controls">
           <button class="btn" id="themeBtn" aria-label="Toggle theme">🌗 Theme</button>
-          <a class="btn" href="https://github.com/yourusername" target="_blank" rel="noreferrer">GitHub</a>
+          <a
+            class="btn"
+            href="https://github.com/DafeiQiu123"
+            target="_blank"
+            rel="noreferrer"
+            >GitHub</a
+          >
         </div>
       </div>
     </header>
 
-    <main class="container">
-      <section class="hero">
-        <div>
-          <span class="pill">👋 Hi / 你好</span>
-          <h1>
-            Dafei Qiu — CS grad student & builder<br />
-            计算机科学研究生 / 热爱动手做项目
-          </h1>
-          <p>
-            I focus on computer vision, NLP, and systems that ship. Use the tabs above to view each page.
-            我主要关注计算机视觉、自然语言处理，以及能够真正落地的系统。请用上方导航进入各个页面。
-          </p>
+    <!-- Main Landing -->
+    <main class="landing-wrapper">
+      <section class="landing">
+        <h1>Dafei Qiu</h1>
 
-          <div class="stack">
-            <span class="chip">Python</span>
-            <span class="chip">PyTorch</span>
-            <span class="chip">OpenCV</span>
-            <span class="chip">Java</span>
-            <span class="chip">Spring Boot</span>
-            <span class="chip">React</span>
-          </div>
+        <p class="intro">
+          欢迎来到我的小小世界。<br />
+          我是计算机科学研究生与工程实践者，<br />
+          理想主义与乐观主义并存，热衷于技术、艺术与创造的交汇点。<br />
+          愿你在此能够欣赏我的作品，享受共同的爱好。
+          <br /><br />
+          <span style="font-size: 14px">
+            Welcome to my small world. <br /> I am a computer science graduate student and
+            engineer, driven by optimism and idealism, <br />exploring the intersection of
+            technology, art, and creation. <br />I hope you find something here to enjoy,
+            and perhaps discover a shared passion along the way.
+          </span>
+        </p>
 
-          <div class="tags" style="margin-top: 16px">
-            <a class="tag" href="education/">→ Education / 教育</a>
-            <a class="tag" href="projects/">→ Projects / 项目</a>
-            <a class="tag" href="hobby/">→ Hobbies / 爱好</a>
-            <a class="tag" href="contact/">→ Contact / 联系</a>
-          </div>
-        </div>
-
-        <div class="hero-card">
-          <pre><code>// Quick intro / 快速介绍
-const dafei = {
-  edu: "Brown CS (MSc)",
-  interests: ["CV", "NLP", "Graphics"],
-  now: "Building & learning"
-};
-</code></pre>
-        </div>
-      </section>
-
-      <section>
-        <h2 class="section-title">Highlights / 摘要</h2>
-        <div class="grid">
-          <article class="card three-col">
-            <h3>Education / 教育</h3>
-            <p class="meta">Brown University — M.S. in CS (2024 – Present)</p>
-            <div class="tags"><a class="tag" href="education/">Open</a></div>
-          </article>
-
-          <article class="card three-col">
-            <h3>Projects / 项目</h3>
-            <p class="meta">OMR, Terrain, NLP analysis, etc.</p>
-            <div class="tags"><a class="tag" href="projects/">Open</a></div>
-          </article>
-
-          <article class="card three-col">
-            <h3>Hobbies / 爱好</h3>
-            <p class="meta">Soccer, Piano, Gaming…</p>
-            <div class="tags"><a class="tag" href="hobby/">Open</a></div>
-          </article>
+        <div class="tags">
+          <a class="tag" href="education/">Education / 教育</a>
+          <a class="tag" href="projects/">Projects / 项目</a>
+          <a class="tag" href="hobby/">Hobbies / 爱好</a>
+          <a class="tag" href="contact/">Contact / 联系</a>
         </div>
       </section>
     </main>
-
-    <footer>
-      <div class="container">© <span id="year"></span> Dafei Qiu — Built for GitHub Pages · 双语中文/English</div>
-    </footer>
 
     <script src="assets/main.js"></script>
   </body>
