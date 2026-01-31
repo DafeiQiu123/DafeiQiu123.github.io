@@ -12,6 +12,23 @@
 
     <link rel="stylesheet" href="../../assets/style.css" />
 </head>
+<script>
+  function showYouTube() {
+    document.getElementById("youtubePlayer").style.display = "block";
+    document.getElementById("bilibiliPlayer").style.display = "none";
+
+    document.getElementById("ytBtn").style.opacity = "1";
+    document.getElementById("biliBtn").style.opacity = "0.6";
+  }
+
+  function showBilibili() {
+    document.getElementById("youtubePlayer").style.display = "none";
+    document.getElementById("bilibiliPlayer").style.display = "block";
+
+    document.getElementById("ytBtn").style.opacity = "0.6";
+    document.getElementById("biliBtn").style.opacity = "1";
+  }
+</script>
 
 <body>
     <header>
@@ -186,28 +203,55 @@
 
         <!-- Demo Video -->
         <section>
-            <h2 class="section-title">Demo / 演示</h2>
-            <div class="grid">
-                <article class="card">
-                    <p class="meta" style="margin-bottom: 12px; font-size: 13px;">
-                        <b>Note.</b> Spoiler alert: the following demo may reveal some puzzle solutions in the game.
-                        <br />
-                        <b>注：</b>以下演示视频可能包含部分关卡解法与谜题机制的展示，请酌情观看。
-                    </p>
-                    <video controls playsinline style="width: 100%; border-radius: 14px">
-                        <source src="./assets/slimebros_demo.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                    </video>
-                    <p class="meta" style="margin-top: 10px; font-size: 13px;">
-                        <b>Note.</b> The recorded demo runs at a noticeably lower frame rate due to screen recording
-                        overhead.
-                        The game runs smoothly during normal execution.
-                        <br />
-                        <b>注：</b>该演示视频在录屏过程中因录制开销导致帧率偏低，实际运行时游戏运行流畅。
-                    </p>
-                </article>
-            </div>
-        </section>
+  <h2 class="section-title">Demo / 演示</h2>
+
+  <div class="grid">
+    <article class="card">
+      <p class="meta" style="margin-bottom: 12px; font-size: 13px;">
+        <b>Note.</b> Spoiler alert: the following demo may reveal some puzzle solutions in the game.
+        <br />
+        <b>注：</b>以下演示视频可能包含部分关卡解法与谜题机制的展示，请酌情观看。
+      </p>
+
+      <!-- Toggle Buttons -->
+      <div class="tags" style="margin-bottom: 12px;">
+        <button class="tag" id="ytBtn" onclick="showYouTube()">YouTube (Default)</button>
+        <button class="tag" id="biliBtn" onclick="showBilibili()">Bilibili</button>
+      </div>
+
+      <!-- Video Container -->
+      <div style="position: relative; padding-top: 56.25%; border-radius: 14px; overflow: hidden;">
+        <!-- YouTube -->
+        <iframe
+          id="youtubePlayer"
+          src="https://www.youtube.com/embed/o25VeHW_OCY"
+          style="position:absolute; top:0; left:0; width:100%; height:100%; border:0;"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+
+        <!-- Bilibili -->
+        <iframe
+          id="bilibiliPlayer"
+          src="https://player.bilibili.com/player.html?bvid=BV1296nBMEbn&autoplay=0"
+          style="position:absolute; top:0; left:0; width:100%; height:100%; border:0; display:none;"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
+      </div>
+
+      <p class="meta" style="margin-top: 10px; font-size: 13px;">
+        <b>Note.</b> The recorded demo runs at a noticeably lower frame rate due to screen recording
+        overhead. The game runs smoothly during normal execution.
+        <br />
+        <b>注：</b>该演示视频在录屏过程中因录制开销导致帧率偏低，实际运行时游戏运行流畅。
+      </p>
+    </article>
+  </div>
+</section>
+
+
         <!-- Skill Set -->
         <section>
             <h2 class="section-title">Skill Set / 技术栈</h2>

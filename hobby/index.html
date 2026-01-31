@@ -4,54 +4,168 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Hobbies | Dafei Qiu</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../assets/style.css" />
   </head>
 
   <body>
+    <!-- Header -->
     <header>
       <div class="container nav">
-        <div class="brand"><a href="../">Dafei Qiu<span class="dot">.</span></a></div>
+        <div class="brand">
+          <a href="../">Dafei Qiu<span class="dot">.</span></a>
+        </div>
+
         <nav>
           <ul>
-            <li><a href="../education/" data-path="/education/">Education / 教育</a></li>
-            <li><a href="../projects/" data-path="/projects/">Projects / 项目</a></li>
-            <li><a href="../hobby/" data-path="/hobby/">Hobbies / 爱好</a></li>
-            <li><a href="../contact/" data-path="/contact/">Contact / 联系</a></li>
+            <li><a href="../education/">Education / 教育</a></li>
+            <li><a href="../projects/">Projects / 项目</a></li>
+            <li><a href="./" class="active">Hobbies / 爱好</a></li>
+            <li><a href="../contact/">Contact / 联系</a></li>
           </ul>
         </nav>
+
         <div class="controls">
           <button class="btn" id="themeBtn">🌗 Theme</button>
-          <a class="btn" href="https://github.com/yourusername" target="_blank" rel="noreferrer">GitHub</a>
+          <a
+            class="btn"
+            href="https://github.com/DafeiQiu123"
+            target="_blank"
+            rel="noreferrer"
+            >GitHub</a
+          >
         </div>
       </div>
     </header>
 
+    <!-- Main -->
     <main class="container">
+      <!-- Page Intro -->
       <section>
-        <h2 class="section-title">Hobbies / 爱好</h2>
+        <span class="pill">🧩 Hobbies / 爱好</span>
+        <h1 style="margin: 10px 0 8px">Hobbies</h1>
+        <p class="sub">
+          Things I genuinely enjoy outside of coursework and projects.
+          <br />
+          学习与项目之外，让我保持好奇心与创造力的事情。
+        </p>
+      </section>
 
+      <!-- Hobbies Grid -->
+      <section>
         <div class="grid">
-          <article class="card three-col">
-            <h3>⚽ Soccer / 足球</h3>
-            <p class="meta">Local amateur leagues; wing & midfield. 本地业余联赛，边路与中场。</p>
-          </article>
-
-          <article class="card three-col">
-            <h3>🎹 Piano / 钢琴</h3>
-            <p class="meta">Classical & game OSTs (NieR, etc.). 古典与游戏配乐。</p>
-          </article>
-
+          <!-- Gaming -->
           <article class="card three-col">
             <h3>🎮 Gaming / 游戏</h3>
-            <p class="meta">Elden Ring, NieR Automata. 艾尔登法环，尼尔机械纪元。</p>
+            <p class="meta">
+              Interested in game mechanics, level design, and narrative-driven
+              experiences.
+              <br />
+              关注游戏机制、关卡设计与叙事体验。
+            </p>
+            <div class="tags">
+              <a class="tag" href="./gaming/">Read More</a>
+            </div>
+          </article>
+
+          <!-- Hiking -->
+          <article class="card three-col">
+            <h3>🥾 Hiking / 徒步</h3>
+            <p class="meta">
+              Enjoy exploring nature and long walks as a way to reset and reflect.
+              <br />
+              通过徒步亲近自然，放松并整理思绪。
+            </p>
+          </article>
+
+          <!-- Composing -->
+          <article class="card three-col">
+            <h3>🎼 Composing / 作曲</h3>
+            <p class="meta">
+              Writing original music and experimenting with harmony, structure,
+              and emotional storytelling through sound.
+              <br />
+              通过音乐进行结构与情绪表达的创作实践。
+            </p>
+            <div class="tags">
+              <a class="tag" href="./composing/">Read More</a>
+            </div>
+          </article>
+
+          <!-- Soccer -->
+          <article class="card three-col">
+            <h3>⚽ Soccer / 足球</h3>
+            <p class="meta">
+              Playing in local amateur settings, mainly as a winger or midfielder.
+              <br />
+              本地业余参与，主要司职边路与中场。
+            </p>
+          </article>
+
+          <!-- Film -->
+          <article class="card three-col">
+            <h3>🎬 Film / 电影</h3>
+            <p class="meta">
+              Enjoy analyzing narrative structure, atmosphere, and visual language
+              in films.
+              <br />
+              喜欢研究电影叙事结构、氛围与影像语言。
+            </p>
+            <div class="tags">
+              <a class="tag" href="./film/">Read More</a>
+            </div>
+          </article>
+
+          <!-- Piano -->
+          <article class="card three-col">
+            <h3>🎹 Piano / 钢琴</h3>
+            <p class="meta">
+              Practicing classical pieces and game soundtracks.
+              <br />
+              练习古典曲目与游戏配乐。
+            </p>
+          </article>
+
+          <!-- Guitar -->
+          <article class="card three-col">
+            <h3>🎸 Guitar / 吉他</h3>
+            <p class="meta">
+              Casual playing and accompaniment for songwriting and relaxation.
+              <br />
+              用于随性弹奏、作曲伴奏与放松。
+            </p>
+          </article>
+
+          <!-- Reading -->
+          <article class="card three-col">
+            <h3>📚 Reading / 阅读</h3>
+            <p class="meta">
+              Reading across fiction, non-fiction, and technology-related topics.
+              <br />
+              阅读小说、非虚构与技术相关内容。
+            </p>
+          </article>
+
+          <!-- Swimming -->
+          <article class="card three-col">
+            <h3>🏊 Swimming / 游泳</h3>
+            <p class="meta">
+              Swimming as a low-impact way to relax and stay active.
+              <br />
+              作为放松身心、保持状态的运动方式。
+            </p>
           </article>
         </div>
       </section>
     </main>
 
+    <!-- Footer -->
     <footer>
       <div class="container">© <span id="year"></span> Dafei Qiu</div>
     </footer>

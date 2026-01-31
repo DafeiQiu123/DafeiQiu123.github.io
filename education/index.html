@@ -4,65 +4,180 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Education | Dafei Qiu</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../assets/style.css" />
   </head>
 
   <body>
+    <!-- Header -->
     <header>
-      <div class="container nav">
-        <div class="brand"><a href="../">Dafei Qiu<span class="dot">.</span></a></div>
-        <nav>
-          <ul>
-            <li><a href="../education/" data-path="/education/">Education / 教育</a></li>
-            <li><a href="../projects/" data-path="/projects/">Projects / 项目</a></li>
-            <li><a href="../hobby/" data-path="/hobby/">Hobbies / 爱好</a></li>
-            <li><a href="../contact/" data-path="/contact/">Contact / 联系</a></li>
-          </ul>
-        </nav>
-        <div class="controls">
-          <button class="btn" id="themeBtn">🌗 Theme</button>
-          <a class="btn" href="https://github.com/yourusername" target="_blank" rel="noreferrer">GitHub</a>
+        <div class="container nav">
+            <div class="brand">
+                <a href="../../">Dafei Qiu<span class="dot">.</span></a>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="../" class="active">Education / 教育</a></li>
+                    <li><a href="../../projects">Projects / 项目</a></li>
+                    <li><a href="../../hobby/">Hobbies / 爱好</a></li>
+                    <li><a href="../../contact/">Contact / 联系</a></li>
+                </ul>
+            </nav>
+
+            <div class="controls">
+                <button class="btn" id="themeBtn" aria-label="Toggle theme">🌗 Theme</button>
+                <a class="btn" href="https://github.com/DafeiQiu123" target="_blank" rel="noreferrer">GitHub</a>
+            </div>
         </div>
-      </div>
     </header>
 
+    <!-- Main -->
     <main class="container">
+      <!-- Page Title -->
       <section>
-        <h2 class="section-title">Education / 教育</h2>
-        <p class="sub">Academic background & relevant courses / 教育背景与相关课程</p>
+        <span class="pill">🎓 Education / 教育背景</span>
+        <h1 style="margin: 10px 0 8px">Education</h1>
+        <p class="sub">
+          Academic background in computer science and mathematics, with strong
+          foundations in programming, machine learning, artificial intelligence, graphics, and mathematical theory.
+          <br />
+          计算机科学与数学背景，具备扎实的编程、机器学习、人工智能、图形学及数理基础。
+        </p>
+      </section>
+
+      <!-- Brown University -->
+      <section>
+        <h2
+          class="section-title"
+          style="display: flex; align-items: center; gap: 10px;"
+        >
+          <img
+            src="../assets/brown.png"
+            alt="Brown University Logo"
+            style="height: 28px; opacity: 0.85;"
+          />
+          Brown University
+        </h2>
 
         <div class="grid">
-          <article class="card two-col">
-            <h3>Brown University — M.S. in Computer Science (2024 – Present)</h3>
-            <p class="meta">
-              Relevant: Computer Vision, NLP, Machine Learning, Graphics<br />
-              相关课程：计算机视觉、自然语言处理、机器学习、图形学
-            </p>
-          </article>
-
-          <article class="card two-col">
-            <h3>[Your Undergrad University] — B.S. in [Your Major] ([Year])</h3>
-            <p class="meta">Honors / 奖项：[e.g., Dean's List, Scholarships]</p>
-          </article>
-
           <article class="card">
-            <h3>Coursework / 课程列表（可选）</h3>
+            <h3>M.S. in Computer Science</h3>
             <p class="meta">
-              - CSCI 1430 Computer Vision<br />
-              - CSCI 1230 Graphics<br />
-              - CSCI 1950N Game Engines<br />
-              （把你想展示的课往这里填）
+              <b>Sep 2024 – May 2026</b><br />
+              GPA: <b>4.0 / 4.0</b>
             </p>
+
+            <div style="margin-top: 14px">
+              <p class="meta" style="margin-bottom: 6px">
+                <b>Notable Courses</b>
+              </p>
+              <div class="stack">
+                <span class="chip">Natural Language Processing</span>
+                <span class="chip">Computer Graphics</span>
+                <span class="chip">Machine Learning</span>
+                <span class="chip">Deep Learning</span>
+                <span class="chip">Computer Vision</span>
+                <span class="chip">2D Game Engine</span>
+                <span class="chip">Blockchains & Cryptocurrencies</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- NYU -->
+      <section>
+        <h2
+          class="section-title"
+          style="display: flex; align-items: center; gap: 10px;"
+        >
+          <img
+            src="../assets/nyu.png"
+            alt="New York University Logo"
+            style="height: 28px; opacity: 0.85;"
+          />
+          New York University
+        </h2>
+
+        <div class="grid">
+          <article class="card">
+            <h3>
+              B.S. in Computer Science & B.S. in Mathematics
+              <span class="meta">(Double Major)</span>
+            </h3>
+
+            <p class="meta">
+              <b>Sep 2020 – May 2024</b><br />
+              GPA: <b>3.86 / 4.0</b> · Dean’s List
+            </p>
+
+            <!-- Math -->
+            <div style="margin-top: 14px">
+              <p class="meta" style="margin-bottom: 6px">
+                <b>Notable Courses (Mathematics)</b>
+              </p>
+              <div class="stack">
+                <span class="chip">Multi-Dimensional Calculus</span>
+                <span class="chip">Mathematical Modeling</span>
+                <span class="chip">Applied Probability</span>
+                <span class="chip">Linear Algebra</span>
+                <span class="chip">Discrete Mathematics</span>
+                <span class="chip">Applied Statistics</span>
+                <span class="chip">Applied Partial Differential Equations</span>
+                <span class="chip">Theory of Numbers</span>
+                <span class="chip">Numerical Analysis</span>
+                <span class="chip">Applied Complex Variables</span>
+              </div>
+            </div>
+
+            <!-- CS -->
+            <div style="margin-top: 14px">
+              <p class="meta" style="margin-bottom: 6px">
+                <b>Notable Courses (Computer Science)</b>
+              </p>
+              <div class="stack">
+                <span class="chip">Data Structures & Algorithms</span>
+                <span class="chip">Object-Oriented Programming</span>
+                <span class="chip">Design & Analysis of Algorithms</span>
+                <span class="chip">Computer Architecture & Organization</span>
+                <span class="chip">Databases</span>
+                <span class="chip">Operating Systems</span>
+                <span class="chip">Software Engineering</span>
+                <span class="chip">Artificial Intelligence</span>
+              </div>
+            </div>
+
+            <!-- Other -->
+            <div style="margin-top: 14px">
+              <p class="meta" style="margin-bottom: 6px">
+                <b>Notable Courses (Other)</b>
+              </p>
+              <div class="stack">
+                <span class="chip">Civil Engineering</span>
+                <span class="chip">Financial Accounting</span>
+                <span class="chip">Digital Logic & State Machine Design</span>
+                <span class="chip">Waves, Optics & Thermodynamics</span>
+                <span class="chip">Human Factors in Engineering Design</span>
+                <span class="chip">Ethics and Technology</span>
+              </div>
+            </div>
           </article>
         </div>
       </section>
     </main>
 
+    <!-- Footer -->
     <footer>
-      <div class="container">© <span id="year"></span> Dafei Qiu</div>
+      <div class="container">
+        © <span id="year"></span> Dafei Qiu
+      </div>
     </footer>
 
     <script src="../assets/main.js"></script>
