@@ -1,496 +1,1020 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Film | Dafei Qiu</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
 
-    <!-- Global Style -->
     <link rel="stylesheet" href="../../assets/style.css" />
 
     <style>
-        /* ===== Movie Grid ===== */
+      /* ===== Movie Grid ===== */
+      .movie-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 18px;
+        margin-top: 20px;
+      }
+
+      @media (max-width: 1100px) {
         .movie-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 18px;
-            margin-top: 20px;
+          grid-template-columns: repeat(3, 1fr);
         }
+      }
 
-        @media (max-width: 1100px) {
-            .movie-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
+      @media (max-width: 640px) {
+        .movie-grid {
+          grid-template-columns: repeat(2, 1fr);
         }
+      }
 
-        @media (max-width: 640px) {
-            .movie-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+      .movie-card {
+        cursor: pointer;
+        background: var(--card);
+        border-radius: 14px;
+        overflow: hidden;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
 
-        .movie-card {
-            cursor: pointer;
-            background: var(--card);
-            border-radius: 14px;
-            overflow: hidden;
-            transition: transform .25s ease, box-shadow .25s ease;
-        }
+      .movie-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px -20px var(--ring);
+      }
 
-        .movie-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px -20px var(--ring);
-        }
+      .movie-card img {
+        width: 100%;
+        aspect-ratio: 2 / 3;
+        object-fit: cover;
+        display: block;
+      }
 
-        .movie-card img {
-            width: 100%;
-            aspect-ratio: 2 / 3;
-            object-fit: cover;
-            display: block;
-        }
+      .movie-title {
+        padding: 10px;
+        text-align: center;
+      }
 
-        .movie-title {
-            padding: 10px;
-            text-align: center;
-        }
+      .movie-title .en {
+        font-size: 13px;
+        font-weight: 600;
+      }
 
-        .movie-title .en {
-            font-size: 13px;
-            font-weight: 600;
-        }
+      .movie-title .cn {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
 
-        .movie-title .cn {
-            font-size: 12px;
-            color: var(--muted);
-            margin-top: 2px;
-        }
+      /* ===== Modal ===== */
+      .modal.hidden {
+        display: none;
+      }
 
-        /* ===== Modal ===== */
-        .modal.hidden {
-            display: none;
-        }
+      .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+      }
 
-        .modal {
-            position: fixed;
-            inset: 0;
-            z-index: 1000;
-        }
+      .modal-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+      }
 
-        .modal-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, .6);
-        }
+      .modal-content {
+        position: relative;
+        width: min(780px, calc(100vw - 32px));
+        margin: 6vh auto;
+        background: var(--card);
+        padding: 28px;
+        border-radius: 16px;
+        line-height: 1.9;
+        max-height: 88vh;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+      }
 
+      .modal-close {
+        position: absolute;
+        top: 12px;
+        right: 14px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        color: var(--muted);
+      }
+
+      .modal-close:hover {
+        color: var(--text);
+      }
+
+      .lang-switch {
+        display: flex;
+        gap: 10px;
+        margin: 14px 0 18px;
+        flex-shrink: 0;
+      }
+
+      .lang-btn {
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: transparent;
+        color: var(--text);
+        padding: 6px 14px;
+        border-radius: 999px;
+        cursor: pointer;
+        font-size: 14px;
+        transition:
+          background 0.2s ease,
+          color 0.2s ease,
+          border-color 0.2s ease;
+      }
+
+      .lang-btn:hover {
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .lang-btn.active {
+        background: var(--text);
+        color: var(--bg);
+        border-color: var(--text);
+      }
+
+      .modal-review {
+        flex: 1;
+        min-height: 0;
+        overflow-y: auto;
+        line-height: 1.95;
+        white-space: pre-line;
+        color: var(--text);
+        padding-right: 6px;
+      }
+
+      .modal-review::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .modal-review::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.18);
+        border-radius: 999px;
+      }
+
+      .modal-review::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .modal-subtitle {
+        font-size: 14px;
+        color: var(--muted);
+        margin-top: 4px;
+        flex-shrink: 0;
+      }
+
+      @media (max-width: 640px) {
         .modal-content {
-            position: relative;
-            max-width: 720px;
-            margin: 8vh auto;
-            background: var(--card);
-            padding: 28px;
-            border-radius: 16px;
-            line-height: 1.9;
+          margin: 3vh auto;
+          padding: 20px;
+          max-height: 92vh;
         }
 
-        .modal-close {
-            position: absolute;
-            top: 12px;
-            right: 14px;
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--muted);
+        .modal-review {
+          line-height: 1.85;
         }
-
-        .modal-close:hover {
-            color: var(--text);
-        }
+      }
     </style>
-</head>
+  </head>
 
-<body>
-    <!-- Header -->
+  <body>
     <header>
-        <div class="container nav">
-            <div class="brand">
-                <a href="../../">Dafei Qiu<span class="dot">.</span></a>
-            </div>
-
-            <nav>
-                <ul>
-                    <li><a href="../../education/">Education / 教育</a></li>
-                    <li><a href="../../projects/">Projects / 项目</a></li>
-                    <li><a href="../" class="active">Hobbies / 爱好</a></li>
-                    <li><a href="../../contact/">Contact / 联系</a></li>
-                </ul>
-            </nav>
-
-            <div class="controls">
-                <button class="btn" id="themeBtn">🌗 Theme</button>
-                <a class="btn" href="https://github.com/DafeiQiu123" target="_blank">GitHub</a>
-            </div>
+      <div class="container nav">
+        <div class="brand">
+          <a href="../../">Dafei Qiu<span class="dot">.</span></a>
         </div>
+
+        <nav>
+          <ul>
+            <li><a href="../../education/">Education / 教育</a></li>
+            <li><a href="../../projects/">Projects / 项目</a></li>
+            <li><a href="../" class="active">Hobbies / 爱好</a></li>
+            <li><a href="../../contact/">Contact / 联系</a></li>
+          </ul>
+        </nav>
+
+        <div class="controls">
+          <button class="btn" id="themeBtn">🌗 Theme</button>
+          <a class="btn" href="https://github.com/DafeiQiu123" target="_blank"
+            >GitHub</a
+          >
+        </div>
+      </div>
     </header>
 
     <main class="container">
-        <!-- Intro -->
-        <section>
-            <span class="pill">🎬 Film / 电影</span>
-            <h1 style="margin: 10px 0 12px">Film</h1>
+      <section>
+        <span class="pill">🎬 Film / 电影</span>
+        <h1 style="margin: 10px 0 12px">Film</h1>
 
-            <p class="sub">
-                I’ve loved films since childhood. Sitting on the sofa each week with family and friends, stepping into a
-                story together, has long become a quiet ritual in my life. So far, I’ve watched more than 2,100 films. I
-                don’t place much value on ranking “the best.” To me, movies are fragments of a life I carry with
-                me—sometimes ropes I hold onto in difficult moments, sometimes landscapes I look back on in moments of
-                joy. As part of this personal homepage, I’ve selected a set of representative works to reflect my taste
-                and cinematic sensibilities. Rather than a list, this is a map of my own journey: from fairy tales to
-                doubt, from admiring heroes to understanding ordinary people, from wanting to escape the world to
-                learning how to stand within it.
-            </p>
+        <p class="sub">
+          I’ve loved films since childhood. Sitting on the sofa each week with
+          family and friends, stepping into a story together, has long become a
+          quiet ritual in my life. So far, I’ve watched more than 2,100 films. I
+          don’t place much value on ranking “the best.” To me, movies are
+          fragments of a life I carry with me—sometimes ropes I hold onto in
+          difficult moments, sometimes landscapes I look back on in moments of
+          joy. As part of this personal homepage, I’ve selected a set of
+          representative works to reflect my taste and cinematic sensibilities.
+          Rather than a list, this is a map of my own journey: from fairy tales
+          to doubt, from admiring heroes to understanding ordinary people, from
+          wanting to escape the world to learning how to stand within it.
+        </p>
 
-            <p class="sub">
-                我从小热爱电影，每周与家人和朋友围坐在沙发前，共同走进一段故事，早已成为我生活中不可或缺的仪式，至今阅片量已超过 2100
-                部。我并不执着于“最好电影”的排序，对我而言，电影更像是一段段被我带走的人生切片——有些是在低谷时紧握的绳索，有些是在欣喜时回望的风景。作为个人主页的一部分，我挑选了一些更具代表性的作品来呈现我的观影取向与审美方向，与其说这是一份片单，不如说它更像一张我走过的精神地图：从童话走向怀疑，从仰望英雄走向理解普通人，从渴望逃离世界，走向学会在世界中站稳。
+        <p class="sub">
+          我从小热爱电影，每周与家人和朋友围坐在沙发前，共同走进一段故事，早已成为我生活中不可或缺的仪式，至今阅片量已超过
+          2100
+          部。我并不执着于“最好电影”的排序，对我而言，电影更像是一段段被我带走的人生切片——有些是在低谷时紧握的绳索，有些是在欣喜时回望的风景。作为个人主页的一部分，我挑选了一些更具代表性的作品来呈现我的观影取向与审美方向，与其说这是一份片单，不如说它更像一张我走过的精神地图：从童话走向怀疑，从仰望英雄走向理解普通人，从渴望逃离世界，走向学会在世界中站稳。
+        </p>
+      </section>
 
-            </p>
-        </section>
+      <section>
+        <h2 class="section-title">Personal Selection / 个人精选</h2>
+        <p class="sub">
+          These are ten films chosen with care and reflection. The Legend of
+          1900 is my only all-time favourite, Harry Potter appears more as a
+          statement of fandom, and the rest are presented without order,
+          together forming the coordinates of my taste and emotional connection
+          to cinema.<br />
+          这是我反复斟酌后挑选出的十部最喜爱的电影。其中《海上钢琴师》是我的最爱中的最爱，
+          《哈利·波特》更多是一种粉丝式的声明，其余作品不分先后。
+        </p>
 
-        <!-- Personal Selection -->
-        <section>
-            <h2 class="section-title">Personal Selection / 个人精选</h2>
-            <p class="sub">
-                These are ten films chosen with care and reflection. The Legend of 1900 is my only all-time favourite,
-                Harry Potter appears more as a statement of fandom, and the rest are presented without order, together
-                forming the coordinates of my taste and emotional connection to cinema.<br />
-                这是我反复斟酌后挑选出的十部最喜爱的电影。其中《海上钢琴师》是我的最爱中的最爱，
-                《哈利·波特》更多是一种粉丝式的声明，其余作品不分先后。
-            </p>
-
-            <div class="movie-grid">
-                <!-- 10 cards -->
-                <div class="movie-card" data-en="The Legend of 1900" data-cn="海上钢琴师">
-                    <img src="assets/movies/1900.webp" />
-                    <div class="movie-title">
-                        <div class="en">The Legend of 1900</div>
-                        <div class="cn">海上钢琴师</div>
-                    </div>
-                </div>
-
-                <div class="movie-card" data-en="Inception" data-cn="盗梦空间">
-                    <img src="assets/movies/inception.webp" />
-                    <div class="movie-title">
-                        <div class="en">Inception</div>
-                        <div class="cn">盗梦空间</div>
-                    </div>
-                </div>
-
-                <div class="movie-card" data-en="The Shawshank Redemption" data-cn="肖申克的救赎">
-                    <img src="assets/movies/shawshank.webp" />
-                    <div class="movie-title">
-                        <div class="en">The Shawshank Redemption</div>
-                        <div class="cn">肖申克的救赎</div>
-                    </div>
-                </div>
-
-                <div class="movie-card" data-en="The Lord of the Rings" data-cn="指环王系列">
-                    <img src="assets/movies/lotr.webp" />
-                    <div class="movie-title">
-                        <div class="en">The Lord of the Rings Series</div>
-                        <div class="cn">指环王系列</div>
-                    </div>
-                </div>
-
-                <div class="movie-card" data-en="Inside Out" data-cn="头脑特工队">
-                    <img src="assets/movies/insideout.webp" />
-                    <div class="movie-title">
-                        <div class="en">Inside Out</div>
-                        <div class="cn">头脑特工队</div>
-                    </div>
-                </div>
-
-                <div class="movie-card" data-en="Let the Bullets Fly" data-cn="让子弹飞">
-                    <img src="assets/movies/bullets.webp" />
-                    <div class="movie-title">
-                        <div class="en">Let the Bullets Fly</div>
-                        <div class="cn">让子弹飞</div>
-                    </div>
-                </div>
-
-                <div class="movie-card" data-en="Scent of a Woman" data-cn="闻香识女人">
-                    <img src="assets/movies/scent.webp" />
-                    <div class="movie-title">
-                        <div class="en">Scent of a Woman</div>
-                        <div class="cn">闻香识女人</div>
-                    </div>
-                </div>
-
-                <div class="movie-card" data-en="American Beauty" data-cn="美国丽人">
-                    <img src="assets/movies/beauty.webp" />
-                    <div class="movie-title">
-                        <div class="en">American Beauty</div>
-                        <div class="cn">美国丽人</div>
-                    </div>
-                </div>
-
-                <div class="movie-card" data-en="Big Fish" data-cn="大鱼">
-                    <img src="assets/movies/bigfish.webp" />
-                    <div class="movie-title">
-                        <div class="en">Big Fish</div>
-                        <div class="cn">大鱼</div>
-                    </div>
-                </div>
-
-                <div class="movie-card" data-en="Harry Potter" data-cn="哈利·波特系列">
-                    <img src="assets/movies/hp.webp" />
-                    <div class="movie-title">
-                        <div class="en">Harry Potter Series</div>
-                        <div class="cn">哈利·波特系列</div>
-                    </div>
-                </div>
+        <div class="movie-grid">
+          <div
+            class="movie-card"
+            data-id="1900"
+            data-en="The Legend of 1900"
+            data-cn="海上钢琴师"
+          >
+            <img
+              src="assets/movies/1900.webp"
+              alt="The Legend of 1900 poster"
+            />
+            <div class="movie-title">
+              <div class="en">The Legend of 1900</div>
+              <div class="cn">海上钢琴师</div>
             </div>
-        </section>
+          </div>
 
-        <!-- Movies of the Year -->
-        <section>
-            <h2 class="section-title">Movies of the Year / 年度电影</h2>
-            <p class="sub">
-                “Movies of the Year” refers to the year I watched the films, not their original release dates. The list
-                is unranked. I began systematically tracking and reviewing movies on Douban (Chinese IMDB) in 2019,
-                which makes my earlier viewing history difficult to fully verify. As a result, this list is curated from
-                2020 onward as part of my personal viewing record.
-                <br />
-                这里的“年度电影”指的是我实际观影的年份，而非影片上映的时间，榜单不分先后。我从 2019 年开始在豆瓣上系统标注电影，
-                因此更早时期的观影记录与当年的“年度最佳”已难以完整考证。本列表从 2020年开始整理，作为我个人观影轨迹的一部分。
-                <br />
-            </p>
-
-            <!-- Years -->
-            <h3>2025</h3>
-            <div class="movie-grid">
-                <div class="movie-card" data-en="One Battle After Another" data-cn="一战再战">
-                    <img src="assets/movies/oba.webp" />
-                    <div class="movie-title">
-                        <div class="en">One Battle After Another</div>
-                        <div class="cn">一战再战</div>
-                    </div>
-                </div>
-                <div class="movie-card" data-en="The Thing" data-cn="怪形">
-                    <img src="assets/movies/thing.webp" />
-                    <div class="movie-title">
-                        <div class="en">The Thing</div>
-                        <div class="cn">怪形</div>
-                    </div>
-                </div>
-                <div class="movie-card" data-en="The Addams Family" data-cn="亚当斯一家">
-                    <img src="assets/movies/addams.webp" />
-                    <div class="movie-title">
-                        <div class="en">The Addams Family</div>
-                        <div class="cn">亚当斯一家</div>
-                    </div>
-                </div>
+          <div
+            class="movie-card"
+            data-id="inception"
+            data-en="Inception"
+            data-cn="盗梦空间"
+          >
+            <img src="assets/movies/inception.webp" alt="Inception poster" />
+            <div class="movie-title">
+              <div class="en">Inception</div>
+              <div class="cn">盗梦空间</div>
             </div>
+          </div>
 
-            <h3>2024</h3>
-            <div class="movie-grid">
-                <div class="movie-card" data-en="Robot Dreams" data-cn="机器人之梦">
-                    <img src="assets/movies/robot.webp" />
-                    <div class="movie-title">
-                        <div class="en">Robot Dreams</div>
-                        <div class="cn">机器人之梦</div>
-                    </div>
-                </div>
-                <div class="movie-card" data-en="Lawrence of Arabia" data-cn="阿拉伯的劳伦斯">
-                    <img src="assets/movies/lawrence.webp" />
-                    <div class="movie-title">
-                        <div class="en">Lawrence of Arabia</div>
-                        <div class="cn">阿拉伯的劳伦斯</div>
-                    </div>
-                </div>
-                <div class="movie-card" data-en="The Hateful Eight" data-cn="八恶人">
-                    <img src="assets/movies/hateful8.webp" />
-                    <div class="movie-title">
-                        <div class="en">The Hateful Eight</div>
-                        <div class="cn">八恶人</div>
-                    </div>
-                </div>
+          <div
+            class="movie-card"
+            data-id="shawshank"
+            data-en="The Shawshank Redemption"
+            data-cn="肖申克的救赎"
+          >
+            <img
+              src="assets/movies/shawshank.webp"
+              alt="The Shawshank Redemption poster"
+            />
+            <div class="movie-title">
+              <div class="en">The Shawshank Redemption</div>
+              <div class="cn">肖申克的救赎</div>
             </div>
+          </div>
 
-            <h3>2023</h3>
-            <div class="movie-grid">
-                <div class="movie-card" data-en="Kikujiro" data-cn="菊次郎的夏天">
-                    <img src="assets/movies/kikujiro.webp" />
-                    <div class="movie-title">
-                        <div class="en">Kikujiro</div>
-                        <div class="cn">菊次郎的夏天</div>
-                    </div>
-                </div>
-                <div class="movie-card" data-en="The Terror Live" data-cn="恐怖直播">
-                    <img src="assets/movies/terrorlive.webp" />
-                    <div class="movie-title">
-                        <div class="en">The Terror Live</div>
-                        <div class="cn">恐怖直播</div>
-                    </div>
-                </div>
-                <div class="movie-card" data-en="The Life of David Gale" data-cn="大卫·戈尔的一生">
-                    <img src="assets/movies/davidgale.webp" />
-                    <div class="movie-title">
-                        <div class="en">The Life of David Gale</div>
-                        <div class="cn">大卫·戈尔的一生</div>
-                    </div>
-                </div>
-                <div class="movie-card" data-en="Everything Everywhere All at Once" data-cn="瞬息全宇宙">
-                    <img src="assets/movies/eeaao.webp" />
-                    <div class="movie-title">
-                        <div class="en">Everything Everywhere All at Once</div>
-                        <div class="cn">瞬息全宇宙</div>
-                    </div>
-                </div>
+          <div
+            class="movie-card"
+            data-id="lotr"
+            data-en="The Lord of the Rings Series"
+            data-cn="指环王系列"
+          >
+            <img
+              src="assets/movies/lotr.webp"
+              alt="The Lord of the Rings poster"
+            />
+            <div class="movie-title">
+              <div class="en">The Lord of the Rings Series</div>
+              <div class="cn">指环王系列</div>
             </div>
+          </div>
 
-            <h3>2022</h3>
-            <div class="movie-grid">
-                <div class="movie-card" data-en="American Beauty" data-cn="美国丽人">
-                    <img src="assets/movies/beauty.webp" />
-                    <div class="movie-title">
-                        <div class="en">American Beauty</div>
-                        <div class="cn">美国丽人</div>
-                    </div>
-                </div>
-                <div class="movie-card" data-en="Witness for the Prosecution" data-cn="控方证人">
-                    <img src="assets/movies/witness.webp" />
-                    <div class="movie-title">
-                        <div class="en">Witness for the Prosecution</div>
-                        <div class="cn">控方证人</div>
-                    </div>
-                </div>
-                <div class="movie-card" data-en="Soul" data-cn="心灵奇旅">
-                    <img src="assets/movies/soul.webp" />
-                    <div class="movie-title">
-                        <div class="en">Soul</div>
-                        <div class="cn">心灵奇旅</div>
-                    </div>
-                </div>
-                <div class="movie-card" data-en="The Good, the Bad and the Ugly" data-cn="黄金三镖客">
-                    <img src="assets/movies/gbu.webp" />
-                    <div class="movie-title">
-                        <div class="en">The Good, the Bad and the Ugly</div>
-                        <div class="cn">黄金三镖客</div>
-                    </div>
-                </div>
+          <div
+            class="movie-card"
+            data-id="insideout"
+            data-en="Inside Out"
+            data-cn="头脑特工队"
+          >
+            <img src="assets/movies/insideout.webp" alt="Inside Out poster" />
+            <div class="movie-title">
+              <div class="en">Inside Out</div>
+              <div class="cn">头脑特工队</div>
             </div>
+          </div>
 
-            <h3>2021</h3>
-            <div class="movie-grid">
-                <div class="movie-card" data-en="Trainspotting" data-cn="猜火车">
-                    <img src="assets/movies/trainspotting.webp" />
-                    <div class="movie-title">
-                        <div class="en">Trainspotting</div>
-                        <div class="cn">猜火车</div>
-                    </div>
-                </div>
-                <div class="movie-card" data-en="Primal Fear" data-cn="一级恐惧">
-                    <img src="assets/movies/primalfear.webp" />
-                    <div class="movie-title">
-                        <div class="en">Primal Fear</div>
-                        <div class="cn">一级恐惧</div>
-                    </div>
-                </div>
-                <div class="movie-card" data-en="Fitzcarraldo" data-cn="陆上行舟">
-                    <img src="assets/movies/fitzcarraldo.webp" />
-                    <div class="movie-title">
-                        <div class="en">Fitzcarraldo</div>
-                        <div class="cn">陆上行舟</div>
-                    </div>
-                </div>
-                <div class="movie-card" data-en="Ran" data-cn="乱">
-                    <img src="assets/movies/ran.webp" />
-                    <div class="movie-title">
-                        <div class="en">Ran</div>
-                        <div class="cn">乱</div>
-                    </div>
-                </div>
+          <div
+            class="movie-card"
+            data-id="bullets"
+            data-en="Let the Bullets Fly"
+            data-cn="让子弹飞"
+          >
+            <img
+              src="assets/movies/bullets.webp"
+              alt="Let the Bullets Fly poster"
+            />
+            <div class="movie-title">
+              <div class="en">Let the Bullets Fly</div>
+              <div class="cn">让子弹飞</div>
             </div>
+          </div>
 
-            <h3>2020</h3>
-            <div class="movie-grid">
-                <div class="movie-card" data-en="Kill la Kill" data-cn="Kill la Kill">
-                    <img src="assets/movies/killlakill.webp" />
-                    <div class="movie-title">
-                        <div class="en">Kill la Kill</div>
-                        <div class="cn">双斩少女</div>
-                    </div>
-                </div>
-                <div class="movie-card" data-en="L.A. Confidential" data-cn="洛城机密">
-                    <img src="assets/movies/laconfidential.webp" />
-                    <div class="movie-title">
-                        <div class="en">L.A. Confidential</div>
-                        <div class="cn">洛城机密</div>
-                    </div>
-                </div>
-                <div class="movie-card" data-en="K-PAX" data-cn="K星异客">
-                    <img src="assets/movies/kpax.webp" />
-                    <div class="movie-title">
-                        <div class="en">K-PAX</div>
-                        <div class="cn">K星异客</div>
-                    </div>
-                </div>
-                <div class="movie-card" data-en="Scent of a Woman" data-cn="闻香识女人">
-                    <img src="assets/movies/scent.webp" />
-                    <div class="movie-title">
-                        <div class="en">Scent of a Woman</div>
-                        <div class="cn">闻香识女人</div>
-                    </div>
-                </div>
-                <div class="movie-card" data-en="Whiplash" data-cn="爆裂鼓手">
-                    <img src="assets/movies/whiplash.webp" />
-                    <div class="movie-title">
-                        <div class="en">Whiplash</div>
-                        <div class="cn">爆裂鼓手</div>
-                    </div>
-                </div>
+          <div
+            class="movie-card"
+            data-id="scent"
+            data-en="Scent of a Woman"
+            data-cn="闻香识女人"
+          >
+            <img src="assets/movies/scent.webp" alt="Scent of a Woman poster" />
+            <div class="movie-title">
+              <div class="en">Scent of a Woman</div>
+              <div class="cn">闻香识女人</div>
             </div>
-        </section>
+          </div>
+
+          <div
+            class="movie-card"
+            data-id="beauty"
+            data-en="American Beauty"
+            data-cn="美国丽人"
+          >
+            <img src="assets/movies/beauty.webp" alt="American Beauty poster" />
+            <div class="movie-title">
+              <div class="en">American Beauty</div>
+              <div class="cn">美国丽人</div>
+            </div>
+          </div>
+
+          <div
+            class="movie-card"
+            data-id="bigfish"
+            data-en="Big Fish"
+            data-cn="大鱼"
+          >
+            <img src="assets/movies/bigfish.webp" alt="Big Fish poster" />
+            <div class="movie-title">
+              <div class="en">Big Fish</div>
+              <div class="cn">大鱼</div>
+            </div>
+          </div>
+
+          <div
+            class="movie-card"
+            data-id="hp"
+            data-en="Harry Potter Series"
+            data-cn="哈利·波特系列"
+          >
+            <img src="assets/movies/hp.webp" alt="Harry Potter poster" />
+            <div class="movie-title">
+              <div class="en">Harry Potter Series</div>
+              <div class="cn">哈利·波特系列</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">Movies of the Year / 年度电影</h2>
+        <p class="sub">
+          “Movies of the Year” refers to the year I watched the films, not their
+          original release dates. The list is unranked. I began systematically
+          tracking and reviewing movies on Douban (Chinese IMDB) in 2019, which
+          makes my earlier viewing history difficult to fully verify. As a
+          result, this list is curated from 2020 onward as part of my personal
+          viewing record.
+          <br />
+          这里的“年度电影”指的是我实际观影的年份，而非影片上映的时间，榜单不分先后。我从
+          2019
+          年开始在豆瓣上系统标注电影，因此更早时期的观影记录与当年的“年度最佳”已难以完整考证。本列表从
+          2020 年开始整理，作为我个人观影轨迹的一部分。
+        </p>
+
+        <h3>2025</h3>
+        <div class="movie-grid">
+          <div
+            class="movie-card"
+            data-id="oba"
+            data-en="One Battle After Another"
+            data-cn="一战再战"
+          >
+            <img
+              src="assets/movies/oba.webp"
+              alt="One Battle After Another poster"
+            />
+            <div class="movie-title">
+              <div class="en">One Battle After Another</div>
+              <div class="cn">一战再战</div>
+            </div>
+          </div>
+          <div
+            class="movie-card"
+            data-id="thing"
+            data-en="The Thing"
+            data-cn="怪形"
+          >
+            <img src="assets/movies/thing.webp" alt="The Thing poster" />
+            <div class="movie-title">
+              <div class="en">The Thing</div>
+              <div class="cn">怪形</div>
+            </div>
+          </div>
+          <div
+            class="movie-card"
+            data-id="addams"
+            data-en="The Addams Family"
+            data-cn="亚当斯一家"
+          >
+            <img
+              src="assets/movies/addams.webp"
+              alt="The Addams Family poster"
+            />
+            <div class="movie-title">
+              <div class="en">The Addams Family</div>
+              <div class="cn">亚当斯一家</div>
+            </div>
+          </div>
+        </div>
+
+        <h3>2024</h3>
+        <div class="movie-grid">
+          <div
+            class="movie-card"
+            data-id="robot"
+            data-en="Robot Dreams"
+            data-cn="机器人之梦"
+          >
+            <img src="assets/movies/robot.webp" alt="Robot Dreams poster" />
+            <div class="movie-title">
+              <div class="en">Robot Dreams</div>
+              <div class="cn">机器人之梦</div>
+            </div>
+          </div>
+          <div
+            class="movie-card"
+            data-id="lawrence"
+            data-en="Lawrence of Arabia"
+            data-cn="阿拉伯的劳伦斯"
+          >
+            <img
+              src="assets/movies/lawrence.webp"
+              alt="Lawrence of Arabia poster"
+            />
+            <div class="movie-title">
+              <div class="en">Lawrence of Arabia</div>
+              <div class="cn">阿拉伯的劳伦斯</div>
+            </div>
+          </div>
+          <div
+            class="movie-card"
+            data-id="hateful8"
+            data-en="The Hateful Eight"
+            data-cn="八恶人"
+          >
+            <img
+              src="assets/movies/hateful8.webp"
+              alt="The Hateful Eight poster"
+            />
+            <div class="movie-title">
+              <div class="en">The Hateful Eight</div>
+              <div class="cn">八恶人</div>
+            </div>
+          </div>
+        </div>
+
+        <h3>2023</h3>
+        <div class="movie-grid">
+          <div
+            class="movie-card"
+            data-id="kikujiro"
+            data-en="Kikujiro"
+            data-cn="菊次郎的夏天"
+          >
+            <img src="assets/movies/kikujiro.webp" alt="Kikujiro poster" />
+            <div class="movie-title">
+              <div class="en">Kikujiro</div>
+              <div class="cn">菊次郎的夏天</div>
+            </div>
+          </div>
+          <div
+            class="movie-card"
+            data-id="terrorlive"
+            data-en="The Terror Live"
+            data-cn="恐怖直播"
+          >
+            <img
+              src="assets/movies/terrorlive.webp"
+              alt="The Terror Live poster"
+            />
+            <div class="movie-title">
+              <div class="en">The Terror Live</div>
+              <div class="cn">恐怖直播</div>
+            </div>
+          </div>
+          <div
+            class="movie-card"
+            data-id="davidgale"
+            data-en="The Life of David Gale"
+            data-cn="大卫·戈尔的一生"
+          >
+            <img
+              src="assets/movies/davidgale.webp"
+              alt="The Life of David Gale poster"
+            />
+            <div class="movie-title">
+              <div class="en">The Life of David Gale</div>
+              <div class="cn">大卫·戈尔的一生</div>
+            </div>
+          </div>
+          <div
+            class="movie-card"
+            data-id="eeaao"
+            data-en="Everything Everywhere All at Once"
+            data-cn="瞬息全宇宙"
+          >
+            <img
+              src="assets/movies/eeaao.webp"
+              alt="Everything Everywhere All at Once poster"
+            />
+            <div class="movie-title">
+              <div class="en">Everything Everywhere All at Once</div>
+              <div class="cn">瞬息全宇宙</div>
+            </div>
+          </div>
+        </div>
+
+        <h3>2022</h3>
+        <div class="movie-grid">
+          <div
+            class="movie-card"
+            data-id="beauty"
+            data-en="American Beauty"
+            data-cn="美国丽人"
+          >
+            <img src="assets/movies/beauty.webp" alt="American Beauty poster" />
+            <div class="movie-title">
+              <div class="en">American Beauty</div>
+              <div class="cn">美国丽人</div>
+            </div>
+          </div>
+          <div
+            class="movie-card"
+            data-id="witness"
+            data-en="Witness for the Prosecution"
+            data-cn="控方证人"
+          >
+            <img
+              src="assets/movies/witness.webp"
+              alt="Witness for the Prosecution poster"
+            />
+            <div class="movie-title">
+              <div class="en">Witness for the Prosecution</div>
+              <div class="cn">控方证人</div>
+            </div>
+          </div>
+          <div
+            class="movie-card"
+            data-id="soul"
+            data-en="Soul"
+            data-cn="心灵奇旅"
+          >
+            <img src="assets/movies/soul.webp" alt="Soul poster" />
+            <div class="movie-title">
+              <div class="en">Soul</div>
+              <div class="cn">心灵奇旅</div>
+            </div>
+          </div>
+          <div
+            class="movie-card"
+            data-id="gbu"
+            data-en="The Good, the Bad and the Ugly"
+            data-cn="黄金三镖客"
+          >
+            <img
+              src="assets/movies/gbu.webp"
+              alt="The Good, the Bad and the Ugly poster"
+            />
+            <div class="movie-title">
+              <div class="en">The Good, the Bad and the Ugly</div>
+              <div class="cn">黄金三镖客</div>
+            </div>
+          </div>
+        </div>
+
+        <h3>2021</h3>
+        <div class="movie-grid">
+          <div
+            class="movie-card"
+            data-id="trainspotting"
+            data-en="Trainspotting"
+            data-cn="猜火车"
+          >
+            <img
+              src="assets/movies/trainspotting.webp"
+              alt="Trainspotting poster"
+            />
+            <div class="movie-title">
+              <div class="en">Trainspotting</div>
+              <div class="cn">猜火车</div>
+            </div>
+          </div>
+          <div
+            class="movie-card"
+            data-id="primalfear"
+            data-en="Primal Fear"
+            data-cn="一级恐惧"
+          >
+            <img src="assets/movies/primalfear.webp" alt="Primal Fear poster" />
+            <div class="movie-title">
+              <div class="en">Primal Fear</div>
+              <div class="cn">一级恐惧</div>
+            </div>
+          </div>
+          <div
+            class="movie-card"
+            data-id="fitzcarraldo"
+            data-en="Fitzcarraldo"
+            data-cn="陆上行舟"
+          >
+            <img
+              src="assets/movies/fitzcarraldo.webp"
+              alt="Fitzcarraldo poster"
+            />
+            <div class="movie-title">
+              <div class="en">Fitzcarraldo</div>
+              <div class="cn">陆上行舟</div>
+            </div>
+          </div>
+          <div class="movie-card" data-id="ran" data-en="Ran" data-cn="乱">
+            <img src="assets/movies/ran.webp" alt="Ran poster" />
+            <div class="movie-title">
+              <div class="en">Ran</div>
+              <div class="cn">乱</div>
+            </div>
+          </div>
+        </div>
+
+        <h3>2020</h3>
+        <div class="movie-grid">
+          <div
+            class="movie-card"
+            data-id="killlakill"
+            data-en="Kill la Kill"
+            data-cn="双斩少女"
+          >
+            <img
+              src="assets/movies/killlakill.webp"
+              alt="Kill la Kill poster"
+            />
+            <div class="movie-title">
+              <div class="en">Kill la Kill</div>
+              <div class="cn">双斩少女</div>
+            </div>
+          </div>
+          <div
+            class="movie-card"
+            data-id="laconfidential"
+            data-en="L.A. Confidential"
+            data-cn="洛城机密"
+          >
+            <img
+              src="assets/movies/laconfidential.webp"
+              alt="L.A. Confidential poster"
+            />
+            <div class="movie-title">
+              <div class="en">L.A. Confidential</div>
+              <div class="cn">洛城机密</div>
+            </div>
+          </div>
+          <div
+            class="movie-card"
+            data-id="kpax"
+            data-en="K-PAX"
+            data-cn="K星异客"
+          >
+            <img src="assets/movies/kpax.webp" alt="K-PAX poster" />
+            <div class="movie-title">
+              <div class="en">K-PAX</div>
+              <div class="cn">K星异客</div>
+            </div>
+          </div>
+          <div
+            class="movie-card"
+            data-id="scent"
+            data-en="Scent of a Woman"
+            data-cn="闻香识女人"
+          >
+            <img src="assets/movies/scent.webp" alt="Scent of a Woman poster" />
+            <div class="movie-title">
+              <div class="en">Scent of a Woman</div>
+              <div class="cn">闻香识女人</div>
+            </div>
+          </div>
+          <div
+            class="movie-card"
+            data-id="whiplash"
+            data-en="Whiplash"
+            data-cn="爆裂鼓手"
+          >
+            <img src="assets/movies/whiplash.webp" alt="Whiplash poster" />
+            <div class="movie-title">
+              <div class="en">Whiplash</div>
+              <div class="cn">爆裂鼓手</div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <!-- Modal -->
     <div id="review-modal" class="modal hidden">
-        <div class="modal-overlay"></div>
-        <div class="modal-content">
-            <button class="modal-close">×</button>
-            <h2 id="modal-title"></h2>
-            <p id="modal-review">影评占位文字。之后你可以慢慢写。</p>
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <button class="modal-close" aria-label="Close">×</button>
+
+        <h2 id="modal-title"></h2>
+        <div id="modal-subtitle" class="modal-subtitle"></div>
+
+        <div class="lang-switch">
+          <button class="lang-btn active" data-lang="zh">中文</button>
+          <button class="lang-btn" data-lang="en">English</button>
         </div>
+
+        <div id="modal-review" class="modal-review"></div>
+      </div>
     </div>
 
     <script>
-        const modal = document.getElementById("review-modal");
-        const titleEl = document.getElementById("modal-title");
+      const reviews = {
+        1900: {
+          zh: `小时候看《海上钢琴师》，最喜欢的当然是中间那段精彩至极的斗琴。1900坐在钢琴前，从一开始甚至不太理解“决斗”的意义，只是带着惺惺相惜的欣赏去切磋，到后来察觉到其中的火药味，锋芒毕露。那种几乎不需要语言就能压倒一切的意气，曾让我深深着迷。年少时的我或许并不真正懂得什么叫孤独、自由与命运，但我能很直观地感受到：这个人一旦坐到琴前，整个世界都仿佛属于他。
 
-        document.querySelectorAll(".movie-card").forEach(card => {
-            card.onclick = () => {
-                titleEl.innerHTML =
-                    card.dataset.en +
-                    "<br><span style='font-size:14px;color:var(--muted)'>" +
-                    card.dataset.cn +
-                    "</span>";
-                modal.classList.remove("hidden");
-            };
+可我始终不明白他的结尾。为什么明知道船就要被炸毁了，他还是不肯下船？按照我当时对电影的理解，他似乎本该在朋友的陪伴下，为了爱情，为了更大的舞台，终于走向大陆，成为音乐厅里万众瞩目的钢琴演奏家，然后迎来某种圆满的结局。这样的结尾缺席，让年纪尚小的我感到强烈的沮丧、困惑与不甘。
+
+直到后来，随着自己渐渐长大，也有了一些面对未知时不再横冲直撞的经历，我才慢慢明白：有些机会并不是我不向往，而是我会因为对不可预知的结果感到不适，而下意识退回熟悉的边界。也是在这个时候，我才真正理解1900。也许他拒绝踏上大陆，并不是因为懦弱，而是因为他无法说服自己走进一个没有边界的世界。船是有限的，琴键是有限的，目光所及的生活也是有限的；也正因为有限，他才能理解，才能掌控，才能真正安放自己的灵魂。而大陆对他来说，意味着无限延展的街道、无数可能的人生、永远无法弹完的选择。那不是自由，至少对他而言，更像是一种令人窒息的失序。
+
+小时候看不懂1900，是因为我天然相信，“更广阔的世界”必然意味着“更好的结局”；长大后才发现，人生并不是非要走遍世界的每一个角落，不是非要把所有可能性都握在手里，才算活得完整。所以后来我再看《海上钢琴师》，最打动我的已经不只是那场华丽的斗琴，而是1900对自身边界近乎残酷的清醒。他不是不知道船外有什么，而是太清楚自己无法属于那个世界。那种清醒带着悲剧性，也带着某种极致的诚实。
+
+人生未必是不断征服未知、填满地图、抵达所有远方。比起“看遍世界”，更重要的，也许是找到那个真正让自己能够站立、呼吸，并完整表达灵魂的位置。`,
+          en: `When I first watched The Legend of 1900 as a child, what captivated me most was, of course, the dazzling piano duel. Sitting at the piano, 1900 moved from initially not even understanding the meaning of a “duel,” simply playing out of mutual admiration, to gradually sensing the hostility beneath it and finally revealing his full brilliance. That confidence, that overwhelming spirit that needed almost no words, fascinated me deeply. Back then, I probably did not truly understand loneliness, freedom, or fate, but I could feel one thing very clearly: once he sat at the piano, the whole world seemed to belong to him.
+
+What I could never understand, though, was the ending. Why, knowing that the ship was about to be destroyed, did he still refuse to get off? In the way I understood movies at the time, he should have stepped onto the mainland with the support of a friend, driven by love and by the promise of a larger stage, become a celebrated concert pianist, and reached some kind of happy ending. The absence of that ending left the younger me frustrated, confused, and unwilling to accept it.
+
+It was only later, as I grew older and gained some experience with no longer rushing headlong into the unknown, that I began to understand. Sometimes it is not that I do not long for certain opportunities; it is that the discomfort of uncertainty makes me retreat, almost instinctively, into what feels familiar. That was when I finally understood 1900. Perhaps he refused to step onto the mainland not because he was cowardly, but because he could not persuade himself to enter a world without boundaries. The ship was finite, the piano keys were finite, and the life before his eyes was finite. Precisely because it was finite, he could understand it, control it, and truly place his soul within it. The mainland, by contrast, meant endless streets, endless possibilities, and endless choices he could never finish playing through. That was not freedom—at least not for him. To him, it felt more like a suffocating kind of disorder.
+
+I could not understand 1900 as a child because I naturally believed that a “wider world” must mean a “better ending.” Only later did I realize that life is not about reaching every corner of the world or holding every possibility in your hands in order to be complete. That is why, when I revisit The Legend of 1900 now, what moves me most is no longer just the brilliance of the piano duel, but 1900’s almost cruel clarity about his own boundaries. It is not that he does not know what lies beyond the ship; it is that he knows too well that he does not belong to that world. There is tragedy in that clarity, but also a rare and ultimate honesty.
+
+Life is not necessarily about conquering the unknown, filling every blank on the map, or arriving at every distant place. More important than “seeing the whole world,” perhaps, is finding the one place where you can truly stand, breathe, and fully express your soul.`,
+        },
+
+        inception: {
+          zh: `这是诺兰专门为多线叙事打造的一座高概念舞台, 几层梦境同时推进，最终在高潮处完成交叉剪辑，那种精密、流畅、又层层抬升的快感，实在迷人。诺兰的作品我几乎都看过，也都非常喜欢，但在我心里，它们终究还是略逊色于《盗梦空间》。
+
+相比之下，《星际穿越》把更多功夫放在情感渲染上；《致命魔术》的反转固然精彩，但这种精彩多少建立在刻意隐藏信息之上；《信条》在气质上与《盗梦空间》最一脉相承，但它的信息密度太高，剪辑也太满，几乎不给观众留下思考和消化的窗口，常常非得看上两遍才能真正理顺。可《盗梦空间》不一样，它并不依赖“藏”来制造高级感，而是先把概念讲明白，再一步一步往上搭，最后让所有已经建立好的规则在终局同时运转。我一直觉得，这种创作方式反而更高级。
+
+它带给我的感觉，其实很像我在游戏里最享受、也最看重的那部分东西。我更愿意把它叫作“游戏性”：也就是一个作品先向你展示它的运行逻辑，让你从接触、学习，到熟悉、精通，最后再把你放进一个作者精心打造的舞台里，让你把已经掌握的一切完整地施展出来。比如《植物大战僵尸》，你最开始只知道僵尸走到最后一排就会吃掉你的脑子，游戏结束；接着你学会种豌豆抵御僵尸，但种植物需要阳光；再往后你明白向日葵可以提供产能，于是自然形成战术意识：前期要尽可能拉高经济，尽早建立最高效的防线。随着每种植物的特性逐渐展开，游戏不断把你推向更复杂也更精彩的局面，最后在那些被精心设计的关卡里，尽情施展你已经完全理解的规则体系。`,
+          en: `Nolan built an entire high-concept stage specifically for multilayered storytelling --- several dream levels move forward at the same time, and in the climax they come together through cross-cutting in a way that feels precise, fluid, and constantly escalating. I have seen almost all of Nolan’s films and love them deeply, but to me, they still fall just a little short of Inception.
+
+By comparison, Interstellar devotes more of its strength to emotional resonance. The Prestige is brilliant in its twists, but much of that brilliance depends on deliberately withholding information. Tenet is probably the closest to Inception in spirit, yet its information density is so high and its editing so packed that it leaves the audience almost no room to pause and process; it often takes a second viewing just to fully untangle it. Inception is different. It does not rely on hiding things to create a sense of sophistication. Instead, it explains its concept clearly, builds upward step by step, and finally lets all the established rules operate at once in the ending. I have always felt that this is actually the more advanced kind of filmmaking.
+
+The feeling it gives me is very similar to the part of games I enjoy and value most. I would call it “gameplay”: a work first shows you how its system operates, lets you move from first contact to learning, then to mastery, and finally places you in a carefully designed stage where you can fully apply everything you have understood. Plants vs. Zombies is a simple example. At first, you only know that if a zombie reaches the last row, it eats your brain and you lose. Then you learn that pea shooters can stop zombies, but planting them costs sun. Later, you understand that sunflowers generate resources, and naturally a tactical awareness forms: in the early game, you want to maximize your economy and build the most efficient defense as soon as possible. As more plant traits are introduced, the game pushes you into situations that become both more complex and more exciting, until in those carefully designed levels, you get to fully exercise the rule set you now understand.`,
+        },
+        shawshank: {
+          zh: `中文影评占位符：这里之后放《肖申克的救赎》的影评。`,
+          en: `English review placeholder: put your review for The Shawshank Redemption here later.`,
+        },
+        lotr: {
+          zh: `毋庸置疑的史诗，直到今天，我依然觉得它呈现了整个电影史上最宏伟的战争场面。每次看到罗汉骑兵发起冲锋，那种悲壮与荣耀交织的力量, 我依旧热泪盈眶。`,
+          en: `It is, without question, an epic. Even today, I still believe it presents the most magnificent battle scenes in the history of cinema. Every time I watch the Rohirrim charge, that overwhelming mixture of tragedy and glory still brings tears to my eyes.`,
+        },
+        insideout: {
+          zh: `中文影评占位符：这里之后放《头脑特工队》的影评。`,
+          en: `English review placeholder: put your review for Inside Out here later.`,
+        },
+        bullets: {
+          zh: `中文影评占位符：这里之后放《让子弹飞》的影评。`,
+          en: `English review placeholder: put your review for Let the Bullets Fly here later.`,
+        },
+        scent: {
+          zh: `中文影评占位符：这里之后放《闻香识女人》的影评。`,
+          en: `English review placeholder: put your review for Scent of a Woman here later.`,
+        },
+        beauty: {
+          zh: `我离中年还很远，但 Kevin Spacey 的精彩表演让我相信，中年危机或许真的就是这个样子。那种被日常生活一点点磨平的疲惫，被家庭、工作与社会期待包围后的麻木感。
+
+可它并没有把这种危机拍成单纯的悲剧。主角被青春萌动重新唤醒，那种近乎荒唐的冲动与重新燃起的生命力，又可爱又可笑。他像一个突然想要重新活一遍的人，笨拙、叛逆，却又带着一点天真的勇气。
+
+而影片最精彩的地方，也许在于它始终游走在讽刺与温柔之间。它既嘲讽美国中产阶级生活的虚伪与空洞，又对那些困在生活里的普通人抱有某种理解与同情。
+
+至于最后的结局，更是把黑色幽默推到了极致。当一切似乎刚刚开始变得不同，当他终于开始感受到生活的气味时，命运却用最冷静、最荒诞的方式画上了句号。`,
+          en: `I am still far from middle age, yet Kevin Spacey’s performance makes me believe that a midlife crisis might truly feel like this. The quiet exhaustion of everyday life, the numbness that comes from being surrounded by work, family, and social expectations—he portrays it with a kind of honesty that feels both real and quietly heartbreaking.
+
+But the film never treats this crisis as pure tragedy. Lester’s sudden awakening through youthful desire feels both absurd and strangely touching. The way he begins to rediscover a sense of life—awkwardly, rebelliously, almost like someone trying to live again—makes the whole journey feel both endearing and a little ridiculous.
+
+What fascinates me most is how the film constantly moves between satire and sympathy. It sharply critiques the emptiness and artificial perfection of suburban middle-class life, yet it also seems to understand and forgive the ordinary people trapped inside it.
+
+And the ending pushes its dark humor to the extreme. Just when everything seems to be shifting, just when he finally begins to rediscover the small beauty of living, fate closes the story in the most calm and ironic way possible.`,
+        },
+        bigfish: {
+          zh: `你愿意相信我的故事吗? 那片被水仙花点亮的金色原野让你有答案了吧。`,
+          en: `Are you willing to believe my story? That golden field lit by daffodils probably gave you the answer already.`,
+        },
+        hp: {
+          zh: `如前面所说,把这个系列放在这里，更多其实是一种粉丝式的声明。理性地说，我并不认为它是那种能够在电影史上以艺术成就名垂青史的系列作品，甚至它对原著中许多内容的改编与编排也一直颇受诟病。若论最得原著神韵的一部，我也认同很多人的看法——《阿兹卡班的囚徒》是最好的，所以我也把它放在封面。
+
+但这些都不影响它在我生命里的分量。它几乎占据了我整个童年，并且直到今天依然是我最熟悉、也最愿意反复回去的电影系列之一。每当我心情不好，或者压力很大的时候，我总会随手挑一部来看；到了 final 周，看几部《哈利·波特》甚至已经成了一种固定传统。跟着小哈利一次次走过那些黑暗、危险与失去，对我来说早已不只是“重温电影”，更像是在见一群陪自己长大的老朋友。以至于很多台词，我几乎都能背下来。
+
+我当然没有痴迷到宁愿相信自己是 muggle，也不愿承认魔法世界并不存在的程度；但这个系列里的角色，的确像朋友一样陪伴了我成长。它所传递出的善良、真诚、勇敢与爱，直到现在仍然能轻易打动我。顺便一提，我最喜欢的角色一直是小天狼星：他放荡不羁、热爱自由，却又始终以一种亦父亦友的方式给予 Harry 最温柔也最珍贵的关怀。`,
+          en: `As metioned before, putting it here more as a declaration of fandom than anything else. To be rational about it, I do not think it is a film series destined to stand among the greatest artistic achievements in cinema history, and many of its adaptations and rearrangements of the novels have long been criticized. If I had to choose the film that captures the spirit of the books best, I would agree with the common opinion: The Prisoner of Azkaban is the strongest one, which is why I chose it for the cover.
+
+That said, none of this changes how much the series means to me. It occupied such a large part of my childhood and remains, even now, one of the film series I know best and return to most often. Whenever I feel down or overwhelmed, I almost instinctively pick one to rewatch. During finals week, watching a few Harry Potter films has practically become a tradition. Following Harry through danger, loss, and growth no longer feels like simply revisiting movies; it feels more like spending time again with old friends who grew up alongside me. At this point, I can recite a surprising amount of the dialogue by heart.
+
+I am not so obsessed that I would rather believe I am a muggle than admit the wizarding world is fictional, but the characters really have accompanied me like friends throughout my life. The kindness, sincerity, courage, and love in this series still move me deeply. And by the way, my favorite character has always been Sirius Black: wild, free-spirited, and yet able to give Harry a kind of care that feels both fatherly and deeply companionable.`,
+        },
+
+        oba: {
+          zh: `极左极右各打五十大板,和我的政治倾向完美符合,大呼过瘾。 黑色幽默也玩得惟妙惟肖,要是结局女儿在结局在极度慌乱之下吧老爸崩了这部电影就神了。`,
+          en: `Both the far left and the far right get hit with the same fifty lashes, which perfectly aligns with my own political inclination—absolutely satisfying to watch. The dark humor is executed brilliantly as well. If, in the ending, the daughter had shot her dad in that moment of extreme panic and chaos, the film would have been legendary.`,
+        },
+        thing: {
+          zh: `中文影评占位符：这里之后放《怪形》的影评。`,
+          en: `English review placeholder: put your review for The Thing here later.`,
+        },
+        addams: {
+          zh: `中文影评占位符：这里之后放《亚当斯一家》的影评。`,
+          en: `English review placeholder: put your review for The Addams Family here later.`,
+        },
+        robot: {
+          zh: `中文影评占位符：这里之后放《机器人之梦》的影评。`,
+          en: `English review placeholder: put your review for Robot Dreams here later.`,
+        },
+        lawrence: {
+          zh: `中文影评占位符：这里之后放《阿拉伯的劳伦斯》的影评。`,
+          en: `English review placeholder: put your review for Lawrence of Arabia here later.`,
+        },
+        hateful8: {
+          zh: `中文影评占位符：这里之后放《八恶人》的影评。`,
+          en: `English review placeholder: put your review for The Hateful Eight here later.`,
+        },
+        kikujiro: {
+          zh: `中文影评占位符：这里之后放《菊次郎的夏天》的影评。`,
+          en: `English review placeholder: put your review for Kikujiro here later.`,
+        },
+        terrorlive: {
+          zh: `中文影评占位符：这里之后放《恐怖直播》的影评。`,
+          en: `English review placeholder: put your review for The Terror Live here later.`,
+        },
+        davidgale: {
+          zh: `中文影评占位符：这里之后放《大卫·戈尔的一生》的影评。`,
+          en: `English review placeholder: put your review for The Life of David Gale here later.`,
+        },
+        eeaao: {
+          zh: `中文影评占位符：这里之后放《瞬息全宇宙》的影评。`,
+          en: `English review placeholder: put your review for Everything Everywhere All at Once here later.`,
+        },
+        witness: {
+          zh: `中文影评占位符：这里之后放《控方证人》的影评。`,
+          en: `English review placeholder: put your review for Witness for the Prosecution here later.`,
+        },
+        soul: {
+          zh: `中文影评占位符：这里之后放《心灵奇旅》的影评。`,
+          en: `English review placeholder: put your review for Soul here later.`,
+        },
+        gbu: {
+          zh: `中文影评占位符：这里之后放《黄金三镖客》的影评。`,
+          en: `English review placeholder: put your review for The Good, the Bad and the Ugly here later.`,
+        },
+        trainspotting: {
+          zh: `中文影评占位符：这里之后放《猜火车》的影评。`,
+          en: `English review placeholder: put your review for Trainspotting here later.`,
+        },
+        primalfear: {
+          zh: `中文影评占位符：这里之后放《一级恐惧》的影评。`,
+          en: `English review placeholder: put your review for Primal Fear here later.`,
+        },
+        fitzcarraldo: {
+          zh: `中文影评占位符：这里之后放《陆上行舟》的影评。`,
+          en: `English review placeholder: put your review for Fitzcarraldo here later.`,
+        },
+        ran: {
+          zh: `中文影评占位符：这里之后放《乱》的影评。`,
+          en: `English review placeholder: put your review for Ran here later.`,
+        },
+        killlakill: {
+          zh: `中文影评占位符：这里之后放《双斩少女》的影评。`,
+          en: `English review placeholder: put your review for Kill la Kill here later.`,
+        },
+        laconfidential: {
+          zh: `中文影评占位符：这里之后放《洛城机密》的影评。`,
+          en: `English review placeholder: put your review for L.A. Confidential here later.`,
+        },
+        kpax: {
+          zh: `中文影评占位符：这里之后放《K星异客》的影评。`,
+          en: `English review placeholder: put your review for K-PAX here later.`,
+        },
+        whiplash: {
+          zh: `中文影评占位符：这里之后放《爆裂鼓手》的影评。`,
+          en: `English review placeholder: put your review for Whiplash here later.`,
+        },
+      };
+
+      const modal = document.getElementById("review-modal");
+      const titleEl = document.getElementById("modal-title");
+      const subtitleEl = document.getElementById("modal-subtitle");
+      const reviewEl = document.getElementById("modal-review");
+      const langBtns = document.querySelectorAll(".lang-btn");
+
+      let currentMovieId = null;
+      let currentLang = "zh";
+
+      function renderReview() {
+        const movie = reviews[currentMovieId];
+
+        if (!movie) {
+          reviewEl.textContent =
+            currentLang === "zh"
+              ? "暂时还没有这部电影的影评。"
+              : "This review is not available yet.";
+        } else {
+          reviewEl.textContent =
+            movie[currentLang] ||
+            (currentLang === "zh"
+              ? "暂时还没有中文影评。"
+              : "English review is not available yet.");
+        }
+
+        langBtns.forEach((btn) => {
+          btn.classList.toggle("active", btn.dataset.lang === currentLang);
         });
+      }
 
-        document.querySelector(".modal-close").onclick =
-            document.querySelector(".modal-overlay").onclick = () => {
-                modal.classList.add("hidden");
-            };
+      document.querySelectorAll(".movie-card").forEach((card) => {
+        card.addEventListener("click", () => {
+          currentMovieId = card.dataset.id;
+          currentLang = "zh";
+
+          titleEl.textContent = card.dataset.en;
+          subtitleEl.textContent = card.dataset.cn;
+
+          renderReview();
+          modal.classList.remove("hidden");
+          document.body.style.overflow = "hidden";
+        });
+      });
+
+      langBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          currentLang = btn.dataset.lang;
+          renderReview();
+        });
+      });
+
+      function closeModal() {
+        modal.classList.add("hidden");
+        document.body.style.overflow = "";
+      }
+
+      document
+        .querySelector(".modal-close")
+        .addEventListener("click", closeModal);
+      document
+        .querySelector(".modal-overlay")
+        .addEventListener("click", closeModal);
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !modal.classList.contains("hidden")) {
+          closeModal();
+        }
+      });
     </script>
 
     <script src="../../assets/main.js"></script>
-</body>
-
+  </body>
 </html>
