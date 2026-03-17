@@ -1,0 +1,1247 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Game | Dafei Qiu</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../../assets/style.css" />
+
+    <style>
+      /* ===== Intro ===== */
+      .intro-brief {
+        margin-bottom: 14px;
+      }
+
+      .collapse-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 16px 0 6px;
+      }
+
+      .collapse-btn {
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: var(--card);
+        color: var(--text);
+        padding: 9px 14px;
+        border-radius: 999px;
+        cursor: pointer;
+        font-size: 14px;
+        transition:
+          transform 0.2s ease,
+          background 0.2s ease,
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .collapse-btn:hover {
+        transform: translateY(-1px);
+        background: rgba(255, 255, 255, 0.04);
+        box-shadow: 0 10px 24px -18px var(--ring);
+      }
+
+      .collapse-btn.active {
+        border-color: rgba(255, 215, 120, 0.55);
+        box-shadow: 0 0 0 1px rgba(255, 215, 120, 0.2) inset;
+      }
+
+      .collapse-panel {
+        display: none;
+        margin-top: 12px;
+        padding: 18px 18px 2px;
+        border-radius: 16px;
+        background: var(--card);
+      }
+
+      .collapse-panel.open {
+        display: block;
+      }
+
+      /* ===== Game Grid ===== */
+      .game-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 18px;
+        margin-top: 20px;
+      }
+
+      @media (max-width: 1100px) {
+        .game-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      @media (max-width: 640px) {
+        .game-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .game-card {
+        position: relative;
+        background: var(--card);
+        border-radius: 14px;
+        overflow: hidden;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+
+      .game-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px -20px var(--ring);
+      }
+
+      .masterpiece-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 2;
+        width: 28px;
+        height: 28px;
+        border-radius: 999px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        background: rgba(24, 20, 10, 0.72);
+        border: 1px solid rgba(255, 210, 90, 0.9);
+        box-shadow: 0 6px 16px -10px rgba(255, 210, 90, 0.7);
+        backdrop-filter: blur(6px);
+      }
+
+      .game-card img {
+        width: 100%;
+        aspect-ratio: 2 / 3;
+        object-fit: cover;
+        display: block;
+      }
+
+      .game-title {
+        padding: 10px;
+        text-align: center;
+      }
+
+      .game-title .en {
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .game-title .cn {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      .legend {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      .legend-star {
+        width: 22px;
+        height: 22px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 13px;
+        background: rgba(24, 20, 10, 0.72);
+        border: 1px solid rgba(255, 210, 90, 0.9);
+      }
+
+      .legend-card {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 5px 10px;
+        border-radius: 999px;
+        color: var(--text);
+        background: rgba(255, 210, 90, 0.05);
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <a href="../../">Dafei Qiu<span class="dot">.</span></a>
+        </div>
+
+        <nav>
+          <ul>
+            <li><a href="../../education/">Education / 教育</a></li>
+            <li><a href="../../projects/">Projects / 项目</a></li>
+            <li><a href="../" class="active">Hobbies / 爱好</a></li>
+            <li><a href="../../contact/">Contact / 联系</a></li>
+          </ul>
+        </nav>
+
+        <div class="controls">
+          <button class="btn" id="themeBtn">🌗 Theme</button>
+          <a class="btn" href="https://github.com/DafeiQiu123" target="_blank"
+            >GitHub</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section>
+        <span class="pill">🎮 Game / 游戏</span>
+        <h1 style="margin: 10px 0 12px">Game</h1>
+
+        <p class="sub intro-brief">
+          Video games are, to me, one of the most remarkable artistic mediums of
+          our time. They bring together system design, visual art, music,
+          narrative, and player interaction into a single experience. A great
+          game is not only something to be watched or consumed, but something to
+          be explored, understood, and mastered. That is why I happily regard
+          games as the Ninth Art.
+          <br /><br />
+          对我而言，电子游戏是当代最独特也最迷人的艺术形式之一。它把系统设计、视觉艺术、音乐、叙事与玩家互动融合进同一个体验之中。一款伟大的游戏不仅仅是被观看或被消费的作品，而是一段需要被探索、被理解、并最终被掌握的旅程。也正因为如此，我始终乐于把游戏视为一种艺术——第九艺术。
+        </p>
+
+        <div class="collapse-group">
+          <button class="collapse-btn" data-target="panel-nonpvp">
+            Game Preference / 游玩偏好
+          </button>
+          <button class="collapse-btn" data-target="panel-gameplay">
+            Game Aesthetics / 游戏审美
+          </button>
+        </div>
+
+        <div id="panel-nonpvp" class="collapse-panel">
+          <p class="sub">
+            Here, when I talk about games, I am referring specifically to
+            non-PvP games. I do not particularly enjoy games where the primary
+            source of utility comes from competing with other players in terms
+            of technical skill. While such games certainly contain elements of
+            strategic enjoyment, the fact that only one side can ultimately win
+            makes the experience largely zero-sum in nature. Moreover, the
+            amount of time required to continuously refine one’s technical
+            skills often feels disproportionate to the enjoyment gained. More
+            importantly, these kinds of games rarely have a true stopping point.
+            PvE games usually provide a clear sense of completion: defeating the
+            final boss, earning a platinum trophy, or fully exploring the entire
+            world. PvP games, on the other hand, seldom offer such an endpoint;
+            their structure often becomes an endless repetition of one match
+            after another. For example, PvP games I have played include Red
+            Alert 2, StarCraft II, and Honor of Kings. In the long run, these
+            games tend to devolve into the simple act of “playing another
+            round,” which happens to be the kind of gaming state I dislike the
+            most. It feels less like a meaningful experience and more like a way
+            of passing time—almost a form of disrespect toward one’s own time.
+            In contrast, PvE games feel more like a one-on-one dialogue between
+            the player and the game’s creator. The player moves through a world
+            designed by the author—exploring it, understanding it, and
+            eventually completing it—much like finishing a film, reading a
+            novel, or listening through an entire music album. It becomes a
+            journey that can be remembered, retold, and even taken pride in. For
+            this reason, I fully recognize that such video games can be regarded
+            as an artistic medium—the Ninth Art.
+          </p>
+
+          <p class="sub">
+            这里的游戏指的是 non-PvP
+            游戏。我并不喜欢那种把游玩乐趣（utility）建立在与其他玩家技术比拼之上的游戏。虽然其中确实存在博弈的乐趣，但由于只能有一方获胜，本质上仍然是一种接近零和的体验。而为了在这种竞争中不断精进技术所投入的时间成本，与最终获得的乐趣相比，在我看来并不成比例。更重要的是，这类游戏往往没有一个真正的停止节点。PVE
+            游戏通常有明确的完成状态，比如打败最终
+            Boss、拿到白金奖杯、或者完整探索整个世界。而 PvP
+            游戏却很少有这样的终点，它们的结构往往只是不断重复的一局又一局。比如我曾经玩过的
+            PvP 游戏：《红色警戒 2》、《StarCraft
+            II》、《王者荣耀》。这些游戏到最后往往都会变成一种纯粹“再开一局”的状态，而这种状态恰恰是我最不喜欢的游戏状态，因为它更像是一种时间消磨，是一种对自己时间的不尊重。相比之下，PVE
+            游戏更像是玩家与游戏作者之间的一场一对一对话。玩家沿着作者设计的世界前行、探索、理解并最终完成它，就像看完一部电影、读完一本小说、听完整张音乐专辑一样。这是一段可以回忆、可以讲述、甚至可以为之感到自豪的旅程。也正因为如此，我完全认可这类电子游戏可以被视为一种艺术形式——第九艺术。
+          </p>
+        </div>
+
+        <div id="panel-gameplay" class="collapse-panel">
+          <p class="sub">
+            In terms of game aesthetics, the part I enjoy the most and value the
+            most is what I call “gameplay.” By gameplay, I mean a work first
+            showing you its underlying logic, then allowing you to move from
+            initial contact and experimentation to learning, familiarity, and
+            mastery, and finally placing you on a stage carefully constructed by
+            the creator where you can fully apply everything you have learned.
+            Plants vs. Zombies is a very typical and elegant example. At the
+            beginning, you only know the most basic rule: if zombies reach the
+            final row, they eat your brain and the game ends. Then you learn to
+            defend yourself by planting Peashooters, but soon realize that
+            planting requires sunlight. Later you discover that Sunflowers
+            increase sunlight production, and tactical awareness naturally
+            emerges: in the early stage, you should maximize your economy as
+            much as possible and establish the most stable and efficient defense
+            line as early as you can. As the characteristics of each plant
+            gradually unfold, the game constantly pushes you toward situations
+            that are both more complex and more exciting. It is not merely
+            increasing numerical pressure; it is expanding your understanding of
+            the system of rules itself. By the time you reach those carefully
+            designed later stages, the pleasure you experience is not simply the
+            pleasure of “winning,” but the satisfaction of finally being able to
+            apply a complete set of rules that you fully understand—smoothly and
+            beautifully. Great gameplay requires that this entire process feel
+            seamless: the rules must be introduced naturally, the learning curve
+            must be clear, the growth in complexity must be well balanced, and
+            the final stage must be sufficiently rewarding. Most importantly,
+            every stage of the process must be enjoyable in itself. From first
+            contact, to gradual mastery, to full expression, the experience
+            should continuously engage and stimulate the player, rather than
+            forcing them through tedious tutorials or repetitive actions that
+            are not genuinely fun. Red Dead Redemption 2, in contrast, serves as
+            a fitting counterexample. It possesses extraordinarily beautiful
+            visuals, deeply immersive storytelling, and incredibly moving
+            character writing. Even today, Arthur’s ending can still bring me to
+            tears; and killing Micah in the snowy mountains remains the most
+            satisfying moment of emotional release I have ever experienced in
+            gaming. Yet if we focus solely on gameplay, I still find it
+            relatively weak. Your core interactions with the world are actually
+            quite limited: greeting people, activating Dead Eye to shoot people,
+            or shooting animals. Its achievements in narrative, atmosphere, and
+            immersion far exceed its achievements in systemic design and
+            interactive depth. For that reason, although I love the game and
+            fully acknowledge it as a great work, I have never personally
+            labeled it a “must-play masterpiece.” Because for me, a truly great
+            game must ultimately stand on the strength of playing itself.
+          </p>
+
+          <p class="sub">
+            而在游戏的审美上，我最享受、也最看重的，是我称作 “游戏性”
+            的东西。所谓“游戏性”，就是一个作品先向你展示它的运行逻辑，再让你从最初的接触与试探，逐渐走向学习、熟悉、精通，最后再把你放进一个作者精心搭建的舞台里，让你将已经掌握的一切完整地施展出来。拿《植物大战僵尸》来说，这就是一个非常典型、也非常优雅的例子。一开始，你只知道最基本的规则：僵尸一旦走到最后一排，就会吃掉你的脑子，游戏结束。接着，你学会通过种植豌豆射手来抵御僵尸，但很快又会发现，种植物需要阳光；再往后，你明白向日葵可以提高阳光产能，于是战术意识便自然形成：前期要尽可能把经济拉高，尽早建立起最稳定、最高效的防线。随着每一种植物的特性逐渐展开，游戏不断把你推向更复杂、也更精彩的局面。它不是单纯地增加数值压力，而是在不断扩展你对规则体系的理解。最后，当你来到那些被精心设计的关卡时，你获得的快感，并不只是“赢了”，而是你终于能够把自己已经完全理解的一整套规则，流畅而漂亮地运用出来。优秀的游戏性，就是这整个过程必须足够丝滑：它的规则展示要自然，学习曲线要清晰，复杂度的提升要合理，最后的舞台也要足够精彩。而更重要的是，每一个环节本身都必须足够有趣。从第一次接触，到逐步掌握，再到真正施展，整个过程都应该让玩家持续感到被吸引、被激发，而不是被迫忍受一段无聊的教学，或者机械地重复一些并不真正好玩的操作。反过来说，《荒野大镖客
+            2》是很恰当的反例。它拥有极其美丽的画面、无比沉浸的叙事，以及极其动人的角色塑造。直到今天，我依然会为亚瑟的结局潸然泪下；而在雪山上杀迈狗，那种情绪宣泄与复仇完成的瞬间，也是我整个游玩史中最痛快的一次。但如果只谈“游戏性”，我始终觉得它是相对薄弱的。你和这个世界的核心交互，其实相当有限：与人打招呼、开启死神之眼开枪打人、开枪打动物。它在叙事、氛围和沉浸感上的成就，远远高于它在规则设计和互动深度上的成就。也正因如此，虽然我非常喜欢它、也承认它是一部伟大的作品，但我始终没有把它贴上
+            “must-play masterpiece”
+            的标签。因为在我这里，一部真正的游戏杰作，必须在 “玩”
+            这件事本身上足够成立。
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">Games Journey / 游戏旅程</h2>
+        <p class="sub">
+          “Game Journey” refers to the year I actually played these games, not
+          their original release dates. My gaming journey mainly began after
+          2021. Games with a <span class="legend-star">★</span> are what I
+          personally consider <strong>must-play masterpieces</strong>. Among
+          them, <strong>The Legend of Zelda: Breath of the Wild</strong> is my
+          all-time favourite.
+          <br />
+          这里的“游戏旅程”指的是我实际游玩这些游戏的年份，而不是它们的发售年份。我的游戏旅程主要从
+          2021 年以后开始。带有
+          <span class="legend-star">★</span>
+          的作品，是我个人认定的 <strong>必玩杰作</strong>。其中，<strong
+            >《塞尔达传说：旷野之息》</strong
+          >
+          是我的最爱的最爱。
+        </p>
+
+        <h3>2026</h3>
+        <div class="game-grid">
+          <div
+            class="game-card"
+            data-en="Split Fiction"
+            data-cn="双影奇境"
+            data-id="splitfiction"
+          >
+            <img
+              src="assets/games/splitfiction.webp"
+              alt="Split Fiction cover"
+            />
+            <div class="game-title">
+              <div class="en">Split Fiction</div>
+              <div class="cn">双影奇境</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="Clair Obscur: Expedition 33"
+            data-cn="光与影：33号远征队"
+            data-id="expedition33"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img
+              src="assets/games/expedition33.webp"
+              alt="Clair Obscur Expedition 33 cover"
+            />
+            <div class="game-title">
+              <div class="en">Clair Obscur: Expedition 33</div>
+              <div class="cn">光与影：33号远征队</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="A Short Hike"
+            data-cn="短途旅行"
+            data-id="ashorthike"
+          >
+            <img src="assets/games/ashorthike.webp" alt="A Short Hike cover" />
+            <div class="game-title">
+              <div class="en">A Short Hike</div>
+              <div class="cn">短途旅行</div>
+            </div>
+          </div>
+        </div>
+
+        <h3>2025</h3>
+        <div class="game-grid">
+          <div
+            class="game-card"
+            data-en="ELDEN RING NIGHTREIGN"
+            data-cn="艾尔登法环：黑夜君临"
+            data-id="nightreign"
+          >
+            <img
+              src="assets/games/nightreign.webp"
+              alt="ELDEN RING NIGHTREIGN cover"
+            />
+            <div class="game-title">
+              <div class="en">ELDEN RING NIGHTREIGN</div>
+              <div class="cn">艾尔登法环：黑夜君临</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="Hollow Knight: Silksong"
+            data-cn="空洞骑士：丝之歌"
+            data-id="silksong"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img
+              src="assets/games/silksong.webp"
+              alt="Hollow Knight Silksong cover"
+            />
+            <div class="game-title">
+              <div class="en">Hollow Knight: Silksong</div>
+              <div class="cn">空洞骑士：丝之歌</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Katana ZERO"
+            data-cn="武士零"
+            data-id="katanazero"
+          >
+            <img src="assets/games/katanazero.webp" alt="Katana ZERO cover" />
+            <div class="game-title">
+              <div class="en">Katana ZERO</div>
+              <div class="cn">武士零</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Star Wars Jedi: Fallen Order"
+            data-cn="星球大战绝地：陨落的武士团"
+            data-id="jedifallenorder"
+          >
+            <img
+              src="assets/games/jedifallenorder.webp"
+              alt="Star Wars Jedi Fallen Order cover"
+            />
+            <div class="game-title">
+              <div class="en">Star Wars Jedi: Fallen Order</div>
+              <div class="cn">星球大战绝地：陨落的武士团</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Lies of P"
+            data-cn="匹诺曹的谎言"
+            data-id="liesofp"
+          >
+            <img src="assets/games/liesofp.webp" alt="Lies of P cover" />
+            <div class="game-title">
+              <div class="en">Lies of P</div>
+              <div class="cn">匹诺曹的谎言</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Dynasty Warriors: Origins"
+            data-cn="真·三国无双：起源"
+            data-id="dworigins"
+          >
+            <img
+              src="assets/games/dworigins.webp"
+              alt="Dynasty Warriors Origins cover"
+            />
+            <div class="game-title">
+              <div class="en">Dynasty Warriors: Origins</div>
+              <div class="cn">真·三国无双：起源</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="Outer Wilds"
+            data-cn="星际拓荒"
+            data-id="outerwilds"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img src="assets/games/outerwilds.webp" alt="Outer Wilds cover" />
+            <div class="game-title">
+              <div class="en">Outer Wilds</div>
+              <div class="cn">星际拓荒</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="The Legend of Zelda: Ocarina of Time"
+            data-cn="塞尔达传说：时之笛"
+            data-id="oot"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img src="assets/games/oot.webp" alt="Ocarina of Time cover" />
+            <div class="game-title">
+              <div class="en">The Legend of Zelda: Ocarina of Time</div>
+              <div class="cn">塞尔达传说：时之笛</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Donkey Kong Bananza"
+            data-cn="咚奇刚：蕉力全开"
+            data-id="bananza"
+          >
+            <img
+              src="assets/games/bananza.webp"
+              alt="Donkey Kong Bananza cover"
+            />
+            <div class="game-title">
+              <div class="en">Donkey Kong Bananza</div>
+              <div class="cn">咚奇刚：蕉力全开</div>
+            </div>
+          </div>
+        </div>
+
+        <h3>2024</h3>
+        <div class="game-grid">
+          <div
+            class="game-card masterpiece"
+            data-en="Ori and the Blind Forest"
+            data-cn="奥日与黑暗森林"
+            data-id="ori1"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img
+              src="assets/games/ori1.webp"
+              alt="Ori and the Blind Forest cover"
+            />
+            <div class="game-title">
+              <div class="en">Ori and the Blind Forest</div>
+              <div class="cn">奥日与黑暗森林</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Enshrouded"
+            data-cn="雾锁王国"
+            data-id="enshrouded"
+          >
+            <img src="assets/games/enshrouded.webp" alt="Enshrouded cover" />
+            <div class="game-title">
+              <div class="en">Enshrouded</div>
+              <div class="cn">雾锁王国</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Armored Core VI"
+            data-cn="装甲核心 6"
+            data-id="ac6"
+          >
+            <img src="assets/games/ac6.webp" alt="Armored Core 6 cover" />
+            <div class="game-title">
+              <div class="en">Armored Core VI</div>
+              <div class="cn">装甲核心 6</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Dark Souls II"
+            data-cn="黑暗之魂 2"
+            data-id="darksouls2"
+          >
+            <img src="assets/games/darksouls2.webp" alt="Dark Souls 2 cover" />
+            <div class="game-title">
+              <div class="en">Dark Souls II</div>
+              <div class="cn">黑暗之魂 2</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="Bloodborne"
+            data-cn="血源诅咒"
+            data-id="bloodborne"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img src="assets/games/bloodborne.webp" alt="Bloodborne cover" />
+            <div class="game-title">
+              <div class="en">Bloodborne</div>
+              <div class="cn">血源诅咒</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="Baldur's Gate 3"
+            data-cn="博德之门 3"
+            data-id="bg3"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img src="assets/games/bg3.webp" alt="Baldur's Gate 3 cover" />
+            <div class="game-title">
+              <div class="en">Baldur's Gate 3</div>
+              <div class="cn">博德之门 3</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="COCOON"
+            data-cn="茧"
+            data-id="cocoon"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img src="assets/games/cocoon.webp" alt="COCOON cover" />
+            <div class="game-title">
+              <div class="en">COCOON</div>
+              <div class="cn">茧</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Kingdom Rush"
+            data-cn="王国保卫战"
+            data-id="kingdomrush"
+          >
+            <img src="assets/games/kingdomrush.webp" alt="Kingdom Rush cover" />
+            <div class="game-title">
+              <div class="en">Kingdom Rush</div>
+              <div class="cn">王国保卫战</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="Animal Well"
+            data-cn="动物井"
+            data-id="animalwell"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img src="assets/games/animalwell.webp" alt="Animal Well cover" />
+            <div class="game-title">
+              <div class="en">Animal Well</div>
+              <div class="cn">动物井</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Black Myth: Wukong"
+            data-cn="黑神话：悟空"
+            data-id="blackmythwukong"
+          >
+            <img
+              src="assets/games/blackmythwukong.webp"
+              alt="Black Myth Wukong cover"
+            />
+            <div class="game-title">
+              <div class="en">Black Myth: Wukong</div>
+              <div class="cn">黑神话：悟空</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="GRIS"
+            data-cn="格莉斯的旅程"
+            data-id="gris"
+          >
+            <img src="assets/games/gris.webp" alt="GRIS cover" />
+            <div class="game-title">
+              <div class="en">GRIS</div>
+              <div class="cn">格莉斯的旅程</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Celeste"
+            data-cn="蔚蓝"
+            data-id="celeste"
+          >
+            <img src="assets/games/celeste.webp" alt="Celeste cover" />
+            <div class="game-title">
+              <div class="en">Celeste</div>
+              <div class="cn">蔚蓝</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Super Mario Bros. Wonder"
+            data-cn="超级马力欧兄弟：惊奇"
+            data-id="mariowonder"
+          >
+            <img
+              src="assets/games/mariowonder.webp"
+              alt="Super Mario Bros Wonder cover"
+            />
+            <div class="game-title">
+              <div class="en">Super Mario Bros. Wonder</div>
+              <div class="cn">超级马力欧兄弟：惊奇</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="The Legend of Zelda: Echoes of Wisdom"
+            data-cn="塞尔达传说：智慧的再现"
+            data-id="zeldaeow"
+          >
+            <img
+              src="assets/games/zeldaeow.webp"
+              alt="Zelda Echoes of Wisdom cover"
+            />
+            <div class="game-title">
+              <div class="en">The Legend of Zelda: Echoes of Wisdom</div>
+              <div class="cn">塞尔达传说：智慧的再现</div>
+            </div>
+          </div>
+        </div>
+
+        <h3>2023</h3>
+        <div class="game-grid">
+          <div
+            class="game-card masterpiece"
+            data-en="Dyson Sphere Program"
+            data-cn="戴森球计划"
+            data-id="dysonsphere"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img
+              src="assets/games/dysonsphere.webp"
+              alt="Dyson Sphere Program cover"
+            />
+            <div class="game-title">
+              <div class="en">Dyson Sphere Program</div>
+              <div class="cn">戴森球计划</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Hades"
+            data-cn="哈迪斯"
+            data-id="hades"
+          >
+            <img src="assets/games/hades.webp" alt="Hades cover" />
+            <div class="game-title">
+              <div class="en">Hades</div>
+              <div class="cn">哈迪斯</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Hogwarts Legacy"
+            data-cn="霍格沃茨之遗"
+            data-id="hogwartslegacy"
+          >
+            <img src="assets/games/hogwarts.webp" alt="Hogwarts Legacy cover" />
+            <div class="game-title">
+              <div class="en">Hogwarts Legacy</div>
+              <div class="cn">霍格沃茨之遗</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="Ori and the Will of the Wisps"
+            data-cn="奥日与萤火意志"
+            data-id="ori2"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img
+              src="assets/games/ori2.webp"
+              alt="Ori and the Will of the Wisps cover"
+            />
+            <div class="game-title">
+              <div class="en">Ori and the Will of the Wisps</div>
+              <div class="cn">奥日与萤火意志</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Little Nightmares I & II"
+            data-cn="小小梦魇 I & II"
+            data-id="littlenightmares"
+          >
+            <img
+              src="assets/games/littlenightmares.webp"
+              alt="Little Nightmares cover"
+            />
+            <div class="game-title">
+              <div class="en">Little Nightmares I & II</div>
+              <div class="cn">小小梦魇 I & II</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="Subnautica"
+            data-cn="深海迷航"
+            data-id="subnautica"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img src="assets/games/subnautica.webp" alt="Subnautica cover" />
+            <div class="game-title">
+              <div class="en">Subnautica</div>
+              <div class="cn">深海迷航</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="Journey"
+            data-cn="风之旅人"
+            data-id="journey"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img src="assets/games/journey.webp" alt="Journey cover" />
+            <div class="game-title">
+              <div class="en">Journey</div>
+              <div class="cn">风之旅人</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Resident Evil 4"
+            data-cn="生化危机 4"
+            data-id="re4"
+          >
+            <img src="assets/games/re4.webp" alt="Resident Evil 4 cover" />
+            <div class="game-title">
+              <div class="en">Resident Evil 4</div>
+              <div class="cn">生化危机 4</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="Dark Souls III"
+            data-cn="黑暗之魂 3"
+            data-id="darksouls3"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img src="assets/games/darksouls3.webp" alt="Dark Souls 3 cover" />
+            <div class="game-title">
+              <div class="en">Dark Souls III</div>
+              <div class="cn">黑暗之魂 3</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="Dark Souls"
+            data-cn="黑暗之魂"
+            data-id="darksouls1"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img src="assets/games/darksouls1.webp" alt="Dark Souls cover" />
+            <div class="game-title">
+              <div class="en">Dark Souls</div>
+              <div class="cn">黑暗之魂</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Spider-Man Remastered"
+            data-cn="漫威蜘蛛侠：重制版"
+            data-id="spidermanremastered"
+          >
+            <img
+              src="assets/games/spidermanremastered.webp"
+              alt="Spider-Man Remastered cover"
+            />
+            <div class="game-title">
+              <div class="en">Spider-Man Remastered</div>
+              <div class="cn">漫威蜘蛛侠：重制版</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="The Legend of Zelda: Tears of the Kingdom"
+            data-cn="塞尔达传说：王国之泪"
+            data-id="totk"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img
+              src="assets/games/totk.webp"
+              alt="Tears of the Kingdom cover"
+            />
+            <div class="game-title">
+              <div class="en">The Legend of Zelda: Tears of the Kingdom</div>
+              <div class="cn">塞尔达传说：王国之泪</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Kirby and the Forgotten Land"
+            data-cn="星之卡比：探索发现"
+            data-id="kirbyforgottenland"
+          >
+            <img
+              src="assets/games/kirbyforgottenland.webp"
+              alt="Kirby and the Forgotten Land cover"
+            />
+            <div class="game-title">
+              <div class="en">Kirby and the Forgotten Land</div>
+              <div class="cn">星之卡比：探索发现</div>
+            </div>
+          </div>
+        </div>
+
+        <h3>2022</h3>
+        <div class="game-grid">
+          <div
+            class="game-card"
+            data-en="Red Dead Redemption 2"
+            data-cn="荒野大镖客 2"
+            data-id="rdr2"
+          >
+            <img
+              src="assets/games/rdr2.webp"
+              alt="Red Dead Redemption 2 cover"
+            />
+            <div class="game-title">
+              <div class="en">Red Dead Redemption 2</div>
+              <div class="cn">荒野大镖客 2</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="Hollow Knight"
+            data-cn="空洞骑士"
+            data-id="hollowknight"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img
+              src="assets/games/hollowknight.webp"
+              alt="Hollow Knight cover"
+            />
+            <div class="game-title">
+              <div class="en">Hollow Knight</div>
+              <div class="cn">空洞骑士</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="The Forest"
+            data-cn="森林"
+            data-id="theforest"
+          >
+            <img src="assets/games/theforest.webp" alt="The Forest cover" />
+            <div class="game-title">
+              <div class="en">The Forest</div>
+              <div class="cn">森林</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="BioShock Infinite"
+            data-cn="生化奇兵：无限"
+            data-id="bioshockinfinite"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img
+              src="assets/games/bioshockinfinite.webp"
+              alt="BioShock Infinite cover"
+            />
+            <div class="game-title">
+              <div class="en">BioShock Infinite</div>
+              <div class="cn">生化奇兵：无限</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="Elden Ring"
+            data-cn="艾尔登法环"
+            data-id="eldenring"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img src="assets/games/eldenring.webp" alt="Elden Ring cover" />
+            <div class="game-title">
+              <div class="en">Elden Ring</div>
+              <div class="cn">艾尔登法环</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="Sekiro: Shadows Die Twice"
+            data-cn="只狼：影逝二度"
+            data-id="sekiro"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img src="assets/games/sekiro.webp" alt="Sekiro cover" />
+            <div class="game-title">
+              <div class="en">Sekiro: Shadows Die Twice</div>
+              <div class="cn">只狼：影逝二度</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="God of War 4"
+            data-cn="战神 4"
+            data-id="gow4"
+          >
+            <img src="assets/games/gow4.webp" alt="God of War 4 cover" />
+            <div class="game-title">
+              <div class="en">God of War 4</div>
+              <div class="cn">战神 4</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Cuphead"
+            data-cn="茶杯头"
+            data-id="cuphead"
+          >
+            <img src="assets/games/cuphead.webp" alt="Cuphead cover" />
+            <div class="game-title">
+              <div class="en">Cuphead</div>
+              <div class="cn">茶杯头</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="It Takes Two"
+            data-cn="双人成行"
+            data-id="ittakestwo"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img src="assets/games/ittakestwo.webp" alt="It Takes Two cover" />
+            <div class="game-title">
+              <div class="en">It Takes Two</div>
+              <div class="cn">双人成行</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="The Legend of Zelda: Link's Awakening"
+            data-cn="塞尔达传说：织梦岛"
+            data-id="linksawakening"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img
+              src="assets/games/linksawakening.webp"
+              alt="Link's Awakening cover"
+            />
+            <div class="game-title">
+              <div class="en">The Legend of Zelda: Link's Awakening</div>
+              <div class="cn">塞尔达传说：织梦岛</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Luigi's Mansion 3"
+            data-cn="路易吉洋馆 3"
+            data-id="luigismansion3"
+          >
+            <img
+              src="assets/games/luigismansion3.webp"
+              alt="Luigi's Mansion 3 cover"
+            />
+            <div class="game-title">
+              <div class="en">Luigi's Mansion 3</div>
+              <div class="cn">路易吉洋馆 3</div>
+            </div>
+          </div>
+        </div>
+
+        <h3>2021 and before</h3>
+        <div class="game-grid">
+          <div
+            class="game-card masterpiece"
+            data-en="The Legend of Zelda: Breath of the Wild"
+            data-cn="塞尔达传说：旷野之息"
+            data-id="botw"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img src="assets/games/botw.webp" alt="Breath of the Wild cover" />
+            <div class="game-title">
+              <div class="en">The Legend of Zelda: Breath of the Wild</div>
+              <div class="cn">塞尔达传说：旷野之息</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="Portal 2"
+            data-cn="传送门 2"
+            data-id="portal2"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img src="assets/games/portal2.webp" alt="Portal 2 cover" />
+            <div class="game-title">
+              <div class="en">Portal 2</div>
+              <div class="cn">传送门 2</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card masterpiece"
+            data-en="Super Mario Odyssey"
+            data-cn="超级马力欧：奥德赛"
+            data-id="marioodyssey"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img
+              src="assets/games/marioodyssey.webp"
+              alt="Super Mario Odyssey cover"
+            />
+            <div class="game-title">
+              <div class="en">Super Mario Odyssey</div>
+              <div class="cn">超级马力欧：奥德赛</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="BattleBlock Theater"
+            data-cn="战斗方块剧场"
+            data-id="battleblocktheater"
+          >
+            <img
+              src="assets/games/battleblocktheater.webp"
+              alt="BattleBlock Theater cover"
+            />
+            <div class="game-title">
+              <div class="en">BattleBlock Theater</div>
+              <div class="cn">战斗方块剧场</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Resident Evil Revelations 2"
+            data-cn="生化危机：启示录 2"
+            data-id="rerev2"
+          >
+            <img
+              src="assets/games/rerev2.webp"
+              alt="Resident Evil Revelations 2 cover"
+            />
+            <div class="game-title">
+              <div class="en">Resident Evil Revelations 2</div>
+              <div class="cn">生化危机：启示录 2</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Romance of the Three Kingdoms 11"
+            data-cn="三国志 11"
+            data-id="rotk11"
+          >
+            <img
+              src="assets/games/rotk11.webp"
+              alt="Romance of the Three Kingdoms 11 cover"
+            />
+            <div class="game-title">
+              <div class="en">Romance of the Three Kingdoms 11</div>
+              <div class="cn">三国志 11</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Machinarium"
+            data-cn="机械迷城"
+            data-id="machinarium"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img src="assets/games/machinarium.webp" alt="Machinarium cover" />
+            <div class="game-title">
+              <div class="en">Machinarium</div>
+              <div class="cn">机械迷城</div>
+            </div>
+          </div>
+
+          <div
+            class="game-card"
+            data-en="Monument Valley"
+            data-cn="纪念碑谷"
+            data-id="monumentvalley"
+          >
+            <div class="masterpiece-badge">★</div>
+            <img
+              src="assets/games/monumentvalley.webp"
+              alt="Monument Valley cover"
+            />
+            <div class="game-title">
+              <div class="en">Monument Valley</div>
+              <div class="cn">纪念碑谷</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      const collapseBtns = document.querySelectorAll(".collapse-btn");
+
+      collapseBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const target = document.getElementById(btn.dataset.target);
+          const isOpen = target.classList.contains("open");
+
+          target.classList.toggle("open", !isOpen);
+          btn.classList.toggle("active", !isOpen);
+        });
+      });
+    </script>
+
+    <script src="../../assets/main.js"></script>
+  </body>
+</html>
